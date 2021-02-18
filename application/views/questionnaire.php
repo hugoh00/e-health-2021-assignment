@@ -54,7 +54,7 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="forename">Forename:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="forename" id="forename" placeholder="Enter Forename">
+					<input type="text" class="form-control" name="forename" id="forename" value="<?php echo $username ?>" placeholder="Enter Forename">
 				</div>
 			</div>
 			<!-- surname -->
@@ -192,7 +192,7 @@
 				<div class="col-sm-9">
 					<input type="text" class="form-control" name="kinRelationship" id="kinRelationship" placeholder="Enter Relationship to Kin">
 				</div>
-			</div>
+			</div> 
 			<!-- kin name -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinNumber">Phone Number:</label>
