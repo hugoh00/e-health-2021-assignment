@@ -75,7 +75,7 @@ class Dashboard extends CI_Controller {
 		$this->Questionnaire_model->getBasicInfo(base64_decode($userID),$title, $forename, $surname, $birthday, 
 		$gender, $maritalStatus, $height, $weight, $occupation);
 
-		$this->dataLoad($userID);
+		$this->questionnaireLoad($userID);
 	}
 	public function contactInfoSave($userID) 
 	{
