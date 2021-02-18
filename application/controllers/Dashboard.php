@@ -56,4 +56,35 @@ class Dashboard extends CI_Controller {
         $this->load->view('header', $data);
 		$this->load->view('data', $data);
 	}
+
+	public function basicInfoSave($userID) 
+	{
+		$data['appName'] = $this->Dashboard_model->getName();
+		$data['id'] = base64_decode($userID);
+		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
+		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$this->load->view('header', $data);
+		$this->load->view('questionnaire', $data);
+	}
+	public function contactInfoSave($userID) 
+	{
+		$data['appName'] = $this->Dashboard_model->getName();
+		$data['id'] = base64_decode($userID);
+		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
+		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$this->load->view('header', $data);
+		$this->load->view('questionnaire', $data);
+	}
+	public function emergencyContactInfoSave($userID) 
+	{
+		$data['appName'] = $this->Dashboard_model->getName();
+		$data['id'] = base64_decode($userID);
+		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
+		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$this->load->view('header', $data);
+		$this->load->view('questionnaire', $data);
+	}
 }
