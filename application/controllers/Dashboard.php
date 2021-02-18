@@ -10,8 +10,7 @@ class Dashboard extends CI_Controller {
 		//loading url helper
 		$this->load->helper('url');
 		//loading the model
-		$this->load->model('Dashboard_model', 'Dashboard_model');
-		$this->load->model('Questionnaire_model','Questionnaire_model');
+		$this->load->model('Dashboard_model');
 	}
 	public function index() {
 		$data['appName'] = $this->Dashboard_model->getName();
@@ -72,7 +71,7 @@ class Dashboard extends CI_Controller {
 		// $title, $forename, $surname, $birthday, 
 		// $gender, $maritalStatus, $height, $weight, $occupation
 
-		$this->Questionnaire_model->getBasicInfo(base64_decode($userID),$title, $forename, $surname, $birthday, 
+		$this->Dashboard_model->getBasicInfo(base64_decode($userID),$title, $forename, $surname, $birthday, 
 		$gender, $maritalStatus, $height, $weight, $occupation);
 
 		$this->questionnaireLoad($userID);

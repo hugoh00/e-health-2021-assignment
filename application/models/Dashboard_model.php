@@ -74,4 +74,36 @@ class Dashboard_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result();
     }
+
+    public function getBasicInfo($id, $title, $forename, $surname, $birthday, 
+    $gender, $maritalStatus, $height, $weight, $occupation) 
+    {
+        $check = $this->setBasicInfo($id, $title, $forename, $surname, $birthday, 
+        $gender, $maritalStatus, $height, $weight, $occupation);
+
+        return $check;
+    }
+    private function setBasicInfo($id, $title, $forename, $surname, $birthday, 
+    $gender, $maritalStatus, $height, $weight, $occupation)
+    {
+        $this->db->set('title', $title);
+        $this->db->set('firstname', $forename);
+        $this->db->set('surname', $surname);
+        $this->db->set('dob', $birthday);
+        $this->db->set('gender', $gender);
+        $this->db->set('marital_status', $maritalStatus);
+        $this->db->set('height', $height);
+        $this->db->set('weight', $weight);
+        $this->db->set('occupation', $occupation);
+
+        $this->db->where('GUID', $id);
+        $this->db->update('users');
+
+        //check whether update statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
