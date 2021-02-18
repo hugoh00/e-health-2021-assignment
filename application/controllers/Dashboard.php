@@ -37,7 +37,9 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
-
+		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
+		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
+		
 		$this->load->view('header', $data);
 		if($data['staff'] == true) {
 			$this->load->view('completedQuestionnaires', $data);
@@ -59,6 +61,8 @@ class Dashboard extends CI_Controller {
 
 	public function basicInfoSave($userID) 
 	{
+		// $title, $forename, $surname, $birthday, 
+		// $gender, $maritalStatus, $height, $weight, $occupation
 		$title = $this->input->post("title");
 		$forename = $this->input->post("forename");
 		$surname = $this->input->post("surname");
@@ -68,8 +72,6 @@ class Dashboard extends CI_Controller {
 		$height = $this->input->post("height");
 		$weight = $this->input->post("weight");
 		$occupation = $this->input->post("occupation");
-		// $title, $forename, $surname, $birthday, 
-		// $gender, $maritalStatus, $height, $weight, $occupation
 
 		$this->Dashboard_model->getBasicInfo(base64_decode($userID),$title, $forename, $surname, $birthday, 
 		$gender, $maritalStatus, $height, $weight, $occupation);
@@ -78,13 +80,17 @@ class Dashboard extends CI_Controller {
 	}
 	public function contactInfoSave($userID) 
 	{
-		$data['appName'] = $this->Dashboard_model->getName();
-		$data['id'] = base64_decode($userID);
-		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
-		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+		// $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn
+		$address = $this->input->post("address");
+		$postcode = $this->input->post("postcode");
+		$mobileNumber = $this->input->post("mobileNumber");
+		$homeNumber = $this->input->post("homeNumber");
+		$SMSyn = $this->input->post("SMSyn");
+		$emailyn = $this->input->post("emailyn");
 
-		$this->load->view('header', $data);
-		$this->load->view('questionnaire', $data);
+		$this->Dashboard_model->getContactInfo(base64_decode($userID), $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn);
+
+		$this->questionnaireLoad($userID);
 	}
 	public function emergencyContactInfoSave($userID) 
 	{

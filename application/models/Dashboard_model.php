@@ -75,6 +75,40 @@ class Dashboard_model extends CI_Model {
         return $query->result();
     }
 
+    
+    public function existingBasicInfo($id)
+    {
+        //function to get all existing basic info from the users table
+        //return the result for later use
+        return $this->getExistingBasicInfo($id);
+    }
+    private function getExistingBasicInfo($id) 
+    {
+        //sql statement to get all existing basic info from user
+        $this->db->select('title, firstname, surname, dob, gender, marital_status, height, weight, occupation');
+        //where $id = GUID 
+        $this->db->where('GUID', $id);
+        //from the users table
+        $query = $this->db->get('users');
+        return $query;
+        
+    }
+    public function existingContactInfo($id) 
+    {
+        //function to get all existing contact info from the users table
+        //return the result for later use
+        return $this->getExistingContactInfo($id);
+    }
+    private function getExistingContactInfo($id) 
+    {
+        //sql statement to get all existing contact info from user
+        $this->db->select('address, postcode, mobile, home_telephone, SMS_YN, email_yn');
+        //where $id = GUID 
+        $this->db->where('GUID', $id);
+        //from the users table
+        $query = $this->db->get('users');
+        return $query;
+    }
     public function getBasicInfo($id, $title, $forename, $surname, $birthday, 
     $gender, $maritalStatus, $height, $weight, $occupation) 
     {
@@ -82,6 +116,12 @@ class Dashboard_model extends CI_Model {
         $gender, $maritalStatus, $height, $weight, $occupation);
 
         return $check;
+    }
+    public function getContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn) 
+    {
+        $check = $this->setContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn);
+
+        return $check; 
     }
     private function setBasicInfo($id, $title, $forename, $surname, $birthday, 
     $gender, $maritalStatus, $height, $weight, $occupation)
@@ -95,6 +135,25 @@ class Dashboard_model extends CI_Model {
         $this->db->set('height', $height);
         $this->db->set('weight', $weight);
         $this->db->set('occupation', $occupation);
+
+        $this->db->where('GUID', $id);
+        $this->db->update('users');
+
+        //check whether update statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private function setContactInfo ($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn)
+    {
+        $this->db->set('address', $address);
+        $this->db->set('postcode', $postcode);
+        $this->db->set('mobile', $mobileNumber);
+        $this->db->set('home_telephone', $homeNumber);
+        $this->db->set('SMS_YN', $SMSyn);
+        $this->db->set('email_yn', $emailyn);
 
         $this->db->where('GUID', $id);
         $this->db->update('users');
