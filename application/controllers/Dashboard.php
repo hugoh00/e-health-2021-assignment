@@ -10,8 +10,8 @@ class Dashboard extends CI_Controller {
 		//loading url helper
 		$this->load->helper('url');
 		//loading the model
-		$this->load->model('Dashboard_model');
-		// $this->load->model('Questionnaire_model');
+		$this->load->model('Dashboard_model', 'Questionnaire_model');
+		$this->load->model('Questionnaire_model','Questionnaire_model');
 	}
 	public function index() {
 		$data['appName'] = $this->Dashboard_model->getName();
