@@ -1,5 +1,5 @@
 
-<body style="background-color: #2aa8e2">
+<body style="background-color: #00cc00">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -285,6 +285,16 @@
 		</div>
 
 		<br>
+		<?php
+		//set all kin contact info with a loop round data passed in from a query
+		foreach ($existingKinInfo->result() as $row) {
+			// set variables to populate fields
+			// $kin_name, $kin_relationship, $kin_telephone
+			$kinName = $row->kin_name;
+			$kinRelationship = $row->kin_relationship;
+			$kinNumber = $row->kin_telephone;
+		}
+	?>
 
 		<!-- Kin Relationship Contact Details form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
@@ -295,21 +305,21 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinName">Full Name:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinName" id="kinName" placeholder="Enter Full Name">
+					<input type="text" class="form-control" name="kinName" id="kinName" value="<?php echo $kinName ?>" placeholder="Enter Full Name">
 				</div>
 			</div>
 			<!-- kin relationship -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinRelationship">Relationship:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinRelationship" id="kinRelationship" placeholder="Enter Relationship to Kin">
+					<input type="text" class="form-control" name="kinRelationship" id="kinRelationship" value="<?php echo $kinRelationship ?>" placeholder="Enter Relationship to Kin">
 				</div>
 			</div> 
 			<!-- kin name -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinNumber">Phone Number:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinNumber" id="kinNumber" placeholder="Enter Kin Telephone">
+					<input type="text" class="form-control" name="kinNumber" id="kinNumber" value="<?php echo $kinNumber ?>" placeholder="Enter Kin Telephone">
 				</div>
 			</div>
 			<button class="btn bg-warning" type="submit" name="kinInfoSave" id="kinInfoSave" value="kinInfoSave">Save</button>

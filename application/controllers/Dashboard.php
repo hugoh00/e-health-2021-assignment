@@ -37,8 +37,10 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
+		$data['existingKinInfo'] = $this->Dashboard_model->existingKinInfo($data['id']);
 		
 		$this->load->view('header', $data);
 		if($data['staff'] == true) {
@@ -94,12 +96,13 @@ class Dashboard extends CI_Controller {
 	}
 	public function emergencyContactInfoSave($userID) 
 	{
-		$data['appName'] = $this->Dashboard_model->getName();
-		$data['id'] = base64_decode($userID);
-		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
-		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+		// $name, $relationship, $telephone
+		$name = $this->input->post("kinName");
+		$relationship = $this->input->post("kinRelationship");
+		$telephone = $this->input->post("kinNumber");
 
-		$this->load->view('header', $data);
-		$this->load->view('questionnaire', $data);
+		$this->Dashboard_model->getKinInfo(base64_decode($userID),$name, $relationship, $telephone);
+
+		$this->questionnaireLoad($userID);
 	}
 }

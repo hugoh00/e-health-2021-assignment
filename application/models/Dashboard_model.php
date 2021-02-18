@@ -109,6 +109,23 @@ class Dashboard_model extends CI_Model {
         $query = $this->db->get('users');
         return $query;
     }
+    public function existingKinInfo($id) 
+    {
+        //function to get all existing kin info from the users table
+        //return the result for later use
+        return $this->getExistingKinInfo($id);
+    }
+    private function getExistingKinInfo($id) 
+    {
+        //sql statement to get all existing kin info from user
+        $this->db->select('kin_name, kin_relationship, kin_telephone');
+        //where $id = GUID 
+        $this->db->where('GUID', $id);
+        //from the users table
+        $query = $this->db->get('users');
+        return $query;
+        
+    }
     public function getBasicInfo($id, $title, $forename, $surname, $birthday, 
     $gender, $maritalStatus, $height, $weight, $occupation) 
     {
@@ -120,6 +137,12 @@ class Dashboard_model extends CI_Model {
     public function getContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn) 
     {
         $check = $this->setContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn);
+
+        return $check; 
+    }
+    public function getKinInfo($id, $name, $relationship, $telephone) 
+    {
+        $check = $this->setKinInfo($id, $name, $relationship, $telephone);
 
         return $check; 
     }
@@ -154,6 +177,22 @@ class Dashboard_model extends CI_Model {
         $this->db->set('home_telephone', $homeNumber);
         $this->db->set('SMS_YN', $SMSyn);
         $this->db->set('email_yn', $emailyn);
+
+        $this->db->where('GUID', $id);
+        $this->db->update('users');
+
+        //check whether update statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private function setKinInfo($id, $name, $relationship, $telephone)
+    {
+        $this->db->set('kin_name', $name);
+        $this->db->set('kin_relationship', $relationship);
+        $this->db->set('kin_telephone', $telephone);
 
         $this->db->where('GUID', $id);
         $this->db->update('users');
