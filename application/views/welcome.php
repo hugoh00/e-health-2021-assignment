@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </nav>
 
 
-	<body  style="background-color: #2aa8e2">
+	<body  style="background-color: #b3ffe0">
 
 	<div class="container-fluid">
 	<?php

@@ -42,6 +42,11 @@ class Dashboard extends CI_Controller {
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
 		$data['existingKinInfo'] = $this->Dashboard_model->existingKinInfo($data['id']);
 		$data['alcoholQuestions'] = $this->Dashboard_model->alcoholQuestions();
+
+		$data['medication'] = $this->Dashboard_model->medication($data['id']);
+		$data['smoke'] = $this->Dashboard_model->smoke($data['id']);
+		$data['alcoholResponses'] = $this->Dashboard_model->alcoholResponses($data['id']);
+		
 		
 		
 		$this->load->view('header', $data);
@@ -146,12 +151,16 @@ class Dashboard extends CI_Controller {
 		$smokerYN = $this->input->post("smokeryn");
 		if ($smokerYN == "N" || $smokerYN == "X") {
 			// save smoker info now
+			$this->Dashboard_model->setSmoke(base64_decode($userID)
+			,$smokerYN,"","","");
 		} else {
 
 			$smokerType = $this->input->post("smokeType");
 			$smokerAge = $this->input->post("smokingAge");
 			$smokerHelp = $this->input->post("smokeHelp");
 			// save smoking info
+			$this->Dashboard_model->setSmoke(base64_decode($userID)
+			,$smokerYN, $smokerType, $smokerAge, $smokerHelp);
 
 		}
 		
@@ -171,6 +180,8 @@ class Dashboard extends CI_Controller {
 		$eightScore = $this->input->post("question8");
 		$nineScore = $this->input->post("question9");
 		$tenScore = $this->input->post("question10");
+		$this->Dashboard_model->setAlcoholResponses(base64_decode($userID), $oneScore, $twoScore, $threeScore, $fourScore, $fiveScore,
+    $sixScore, $sevenScore, $eightScore, $nineScore, $tenScore);
 
 		//function checks whether they have a record if no -> insert if yes -> update
 

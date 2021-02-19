@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 echo <<<_END
 
-	<body style="background-color: #2aa8e2">
+	<body style="background-color: #b3ffe0">
 	
 	<h1>$appName Registration Portal</h1>
 

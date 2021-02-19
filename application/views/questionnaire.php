@@ -31,6 +31,7 @@
 		</div>
 	</nav>
 	<?php
+	
 	//set all basic info with a loop round data passed in from a query
 	foreach ($existingBasicInfo->result() as $row) {
 		// set variables to populate fields
@@ -436,6 +437,12 @@
 				</div>
 			</div>
 			<!-- alcohol questions -->
+			<?php
+			foreach($alcoholResponses->result() as $row) {
+				echo $row->questionid;
+				echo "<br>";
+			}
+			?>
 			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr class="table-info">
@@ -457,22 +464,22 @@
 							echo "<tr>";
 							echo "<th scope='row'>$row->GUID</th>";
 							echo "<td>$row->Question</td>";
-							echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response0'>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response0'>";
 							echo "$row->response0</td>";
 							if($row->GUID == 9 || $row->GUID == 10) {
 								echo "<td>$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response2'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2'>";
 								echo "$row->response2</td>";
 								echo "<td>$row->response3</td>";
 							} else {
-								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response1'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response1'>";
 								echo "$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response2'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2'>";
 								echo "$row->response2</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response3'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response3'>";
 								echo "$row->response3</td>";
 							}
-							echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response4'>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response4'>";
 							echo "$row->response4</td>";
 							echo "</tr>";
 						}

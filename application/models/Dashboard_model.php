@@ -74,29 +74,7 @@ class Dashboard_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result();
     }
-    public function alcoholQuestions() 
-    {
-        return $this->getAlcoholQuestions();
-    }
-    private function getAlcoholQuestions()
-    {
-        // sql statement in full
-//         SELECT alcohol_questions.GUID, alcohol_questions.Question, 
-//         alcohol_options.response0, alcohol_options.response1, 
-//         alcohol_options.response2, alcohol_options.response3, 
-//         alcohol_options.response4
-//         FROM alcohol_questions
-//         JOIN alcohol_options ON alcohol_options.GUID = alcohol_questions.optionsid
-           $this->db->select("alcohol_questions.GUID, alcohol_questions.Question, 
-           alcohol_options.response0, alcohol_options.response1, 
-           alcohol_options.response2, alcohol_options.response3, 
-           alcohol_options.response4"); 
-           $this->db->from('alcohol_questions');
-           $this->db->join('alcohol_options', 'alcohol_options.GUID = alcohol_questions.optionsid');
-
-           $query = $this->db->get();
-           return $query;
-    }
+   
 
     
     public function existingBasicInfo($id)
@@ -228,8 +206,32 @@ class Dashboard_model extends CI_Model {
         }
     }
 
-
+    // 
     //questionnaire
+    // 
+
+    // 
+    //medication
+    // 
+    public function medication($id) 
+    {
+
+        return $this->getMedication($id);
+
+    }
+
+    private function getMedication($id) 
+    {
+        $this->db->select('Medication_YN, 
+        Medication_1, medication_dosage_1, medication_frequency_1, 
+        Medication_2, medication_dosage_2, medication_frequency_2, 
+        Medication_3, medication_dosage_3, medication_frequency_3');
+        $this->db->where('userid', $id);
+        $query = $this->db->get('medication');
+
+        return $query;
+
+    }
 
     public function saveMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
     $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
@@ -251,11 +253,11 @@ class Dashboard_model extends CI_Model {
     }
     private function checkMedicationExists($id)
     {
-        //sql statement for username password
+
         $this->db->select('userid');
-        //where email = $email
+        //where userid = $id
         $this->db->where('userid' , $id);
-        //from the users table
+        //from the medication table
         $query = $this->db->get('medication');
         //returns query result
         return $query->result();
@@ -265,6 +267,7 @@ class Dashboard_model extends CI_Model {
     $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
     $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration)
     {
+        // Medication_YN, Medication_1, medication_dosage_1, medication_frequency_1, 
         $this->db->set('userid', $id);
         $this->db->set('Medication_YN', $medicationYN);
 
@@ -321,4 +324,203 @@ class Dashboard_model extends CI_Model {
         }
 
     }
+
+    // 
+    // Smoking
+    // 
+    public function smoke($id)
+    {
+        return $this->getSmoke($id);
+    }
+    private function getSmoke($id)
+    {
+        $this->db->select('smoke_status, smoke_type, start_smoking, quit_smoking');
+        $this->db->where('userid', $id);
+        $query = $this->db->get('smoking');
+
+        return $query;
+    }
+    public function setSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking)
+    {
+        $check = sizeof($this->checkSmokeExist($id));
+
+        if ($check == 0) {
+            $this->insertSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking);
+        } else {
+            $this->updateSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking);
+        }
+
+    }
+    private function checkSmokeExist($id)
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        //from the medication table
+        $query = $this->db->get('smoking');
+        //returns query result
+        return $query->result();
+    }
+    private function updateSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking) 
+    {
+        $this->db->set('smoke_status', $smoke_status);
+        $this->db->set('smoke_type', $smoke_type);
+        $this->db->set('start_smoking', $start_smoking);
+        $this->db->set('quit_smoking', $quit_smoking);
+
+        $this->db->where('userid', $id);
+        $this->db->update('smoking');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function insertSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking) 
+    {
+        $this->db->set('userid', $id);
+        $this->db->set('smoke_status', $smoke_status);
+        $this->db->set('smoke_type', $smoke_type);
+        $this->db->set('start_smoking', $start_smoking);
+        $this->db->set('quit_smoking', $quit_smoking);
+
+        $this->db->insert('smoking');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    
+    // 
+    // alcohol questions
+    // 
+
+    public function alcoholQuestions() 
+    {
+        return $this->getAlcoholQuestions();
+    }
+    private function getAlcoholQuestions()
+    {
+        // sql statement in full
+//         SELECT alcohol_questions.GUID, alcohol_questions.Question, 
+//         alcohol_options.response0, alcohol_options.response1, 
+//         alcohol_options.response2, alcohol_options.response3, 
+//         alcohol_options.response4
+//         FROM alcohol_questions
+//         JOIN alcohol_options ON alcohol_options.GUID = alcohol_questions.optionsid
+           $this->db->select("alcohol_questions.GUID, alcohol_questions.Question, 
+           alcohol_options.response0, alcohol_options.response1, 
+           alcohol_options.response2, alcohol_options.response3, 
+           alcohol_options.response4"); 
+           $this->db->from('alcohol_questions');
+           $this->db->join('alcohol_options', 'alcohol_options.GUID = alcohol_questions.optionsid');
+
+           $query = $this->db->get();
+           return $query;
+    }
+
+    public function alcoholResponses($id)
+    {
+        return $this->getAlcoholResponses($id);
+    }
+    private function getAlcoholResponses($id) 
+    {
+        $this->db->select('*');
+        $this->db->where('userid', $id);
+        $this->db->from('alcohol_responses');
+        $this->db->order_by('questionid ASC');
+
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function setAlcoholResponses($id, $oneScore, $twoScore, $threeScore, $fourScore, $fiveScore,
+    $sixScore, $sevenScore, $eightScore, $nineScore, $tenScore)
+    {
+        // check whether a record of each individual record exists before updating or inserting
+        $this->checkAlcoholResponsesExists($id, 1, $oneScore);
+        $this->checkAlcoholResponsesExists($id, 2, $twoScore);
+        $this->checkAlcoholResponsesExists($id, 3, $threeScore);
+        $this->checkAlcoholResponsesExists($id, 4, $fourScore);
+        $this->checkAlcoholResponsesExists($id, 5, $fiveScore);
+
+        $this->checkAlcoholResponsesExists($id, 6, $sixScore);
+        $this->checkAlcoholResponsesExists($id, 7, $sevenScore);
+        $this->checkAlcoholResponsesExists($id, 8, $eightScore);
+        $this->checkAlcoholResponsesExists($id, 9, $nineScore);
+        $this->checkAlcoholResponsesExists($id, 10, $tenScore);
+
+
+    }
+    private function checkAlcoholResponsesExists($id, $questionid, $response) 
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        $this->db->where('questionid', $questionid);
+        //from the medication table
+        $query = $this->db->get('alcohol_responses');
+        //returns query result
+        $check = sizeof($query->result());
+
+        if ($check == 0) {
+            $this->insertAlcoholResponses($id, $questionid, $response);
+        } else {
+            $this->updateAlcoholResponses($id, $questionid, $response);
+        }
+
+    }
+    private function updateAlcoholResponses($id, $questionid, $response) 
+    {
+        // $rest = substr("abcdef", -1);    // returns "f"
+        
+        $score = substr($response, -1);
+        $this->db->set('response', $response);
+        $this->db->set('response_score', $score);
+
+        $this->db->where('userid', $id);
+        $this->db->where('questionid', $questionid);
+        $this->db->update('alcohol_responses');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function insertAlcoholResponses($id, $questionid, $response) 
+    {
+         // $rest = substr("abcdef", -1);    // returns "f"
+         $this->db->set('userid', $id);
+         $this->db->set('questionid', $questionid);
+
+         $score = substr($response, -1);
+
+         $this->db->set('response', $response);
+         $this->db->set('response_score', $score);
+
+         $this->db->insert('alcohol_responses');
+         
+ 
+         //check whether insert statement has been executed
+         if ($this->db->affected_rows() != 0) {
+             return true;
+         } else {
+             return false;
+         }
+
+    }
+
 }
