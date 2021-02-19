@@ -117,6 +117,10 @@ class Dashboard extends CI_Controller {
 		$medicationYN = $this->input->post("medicationyn");
 		if ($medicationYN == "N") {
 			// save medication info now
+			$this->Dashboard_model->saveMedication(base64_decode($userID), $medicationYN, 
+			"", "", "",
+			"", "", "",
+			"", "", "");
 		} else {
 			$firstMedicationName = $this->input->post("firstmedicationName");
 			$firstMedicationDosage = $this->input->post("firstmedicationDosage");
@@ -130,6 +134,10 @@ class Dashboard extends CI_Controller {
 			$thirdMedicationDosage = $this->input->post("thirdmedicationDosage");
 			$thirdMedicationDuration = $this->input->post("thirdmedicationTaken");
 			// save medication info
+			$this->Dashboard_model->saveMedication(base64_decode($userID), $medicationYN, 
+			$firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+			$secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+			$thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration);
 		}
 		
 
@@ -169,14 +177,32 @@ class Dashboard extends CI_Controller {
 		//family medical history
 		// $heartDiseaseYN, $heartDiseaseMember, $cancerYN, $cancerMember
 		// $strokeYN, $strokeMember, $otherYN, $otherMember
+		$heartDiseaseYN = $this->input->post("heartyn");
+		$heartDiseaseMember = $this->input->post("heartMember");
+
+		$cancerYN = $this->input->post("canceryn");
+		$cancerMember = $this->input->post("cancerMember");
+
+		$heartDiseaseYN = $this->input->post("strokeyn");
+		$heartDiseaseMember = $this->input->post("strokeMember");
+
+		$cancerYN = $this->input->post("otheryn");
+		$cancerMember = $this->input->post("otherMember");
 
 		//update/insert family history
 
 		//allergies
 		// $allergies
+		$allergyYN = $this->input->post("allergyYN");
+		$allergies = $this->input->post("allergy");
 		
 		//lifestyle
 		// $regExerciseYN, $exerciseLength, $exerciseDays, $diet
+
+		$regExerciseYN = $this->input->post("regExerciseYN");
+		$exerciseLength = $this->input->post("exerciseLength");
+		$exerciseDays = $this->input->post("exerciseDays");
+		$diet = $this->input->post("diet");
 
 		$this->questionnaireLoad($userID);
 	}

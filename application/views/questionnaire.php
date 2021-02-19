@@ -593,7 +593,7 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="diet">How would you rate your Diet:</label>
 				<div class="col-sm-9">
-					<select class="form-control" style="width:25%" id="diet" name="diet">
+					<select class="form-control" style="width:50%" id="diet" name="diet">
 						<option <?php echo $GoodSelected ?>>Good</option>
 						<option <?php echo $AverageSelected ?>>Average</option>
 						<option <?php echo $PoorSelected ?>>Poor</option>

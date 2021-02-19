@@ -227,4 +227,98 @@ class Dashboard_model extends CI_Model {
             return false;
         }
     }
+
+
+    //questionnaire
+
+    public function saveMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+    $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+    $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration) 
+    {
+
+        $check = sizeof($this->checkMedicationExists($id));
+        if ($check == 0) {
+            //call insert query
+            $this->insertMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+            $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+            $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration);
+        } else {
+            //call update query
+            $this->updateMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+            $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+            $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration);
+        }
+    }
+    private function checkMedicationExists($id)
+    {
+        //sql statement for username password
+        $this->db->select('userid');
+        //where email = $email
+        $this->db->where('userid' , $id);
+        //from the users table
+        $query = $this->db->get('medication');
+        //returns query result
+        return $query->result();
+
+    }
+    private function insertMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+    $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+    $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration)
+    {
+        $this->db->set('userid', $id);
+        $this->db->set('Medication_YN', $medicationYN);
+
+        $this->db->set('Medication_1', $firstMedicationName);
+        $this->db->set('medication_dosage_1', $firstMedicationDosage);
+        $this->db->set('medication_frequency_1', $firstMedicationDuration);
+
+        $this->db->set('Medication_2', $secondMedicationName);
+        $this->db->set('medication_dosage_2', $secondMedicationDosage);
+        $this->db->set('medication_frequency_2', $secondMedicationDuration);
+
+        $this->db->set('Medication_3', $thirdMedicationName);
+        $this->db->set('medication_dosage_3', $thirdMedicationDosage);
+        $this->db->set('medication_frequency_3', $thirdMedicationDuration);
+
+        $this->db->insert('medication');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function updateMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
+    $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
+    $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration) 
+    {
+        $this->db->set('Medication_YN', $medicationYN);
+
+        $this->db->set('Medication_YN', $firstMedicationName);
+        $this->db->set('Medication_YN', $firstMedicationDosage);
+        $this->db->set('Medication_YN', $firstMedicationDuration);
+
+        $this->db->set('Medication_YN', $secondMedicationName);
+        $this->db->set('Medication_YN', $secondMedicationDosage);
+        $this->db->set('Medication_YN', $secondMedicationDuration);
+
+        $this->db->set('Medication_YN', $thirdMedicationName);
+        $this->db->set('Medication_YN', $thirdMedicationDosage);
+        $this->db->set('Medication_YN', $thirdMedicationDuration);
+
+        $this->db->where('userid', $id);
+        $this->db->update('medication');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
