@@ -481,10 +481,129 @@
 			</table>
 			<!-- family medical history -->
 			<h6 class="form-title" style="padding-top:5px;">Family Medical History:</h6>
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr class="table-info">
+						<th scope="col">Condition</th>
+						<th scope="col">Affected</th>
+						<th scope="col">Family Member</th>
+					</tr>
+				</thead>
+				<tbody>
+						<!-- cancer -->
+						<tr>
+							<th scope='row'>Cancer</th>
+							<td><select class="form-control" id="canceryn" name="canceryn">
+							<option <?php echo $cancerYN ?> value="Y">Yes</option>
+							<option <?php echo $cancerYN ?> value="N">No</option>
+							</select></td>
+							<td>
+							<div id="cancerMemberInfo">
+							<input type="text" class="form-control" name="cancerMember" id="cancerMember" value="<?php echo $cancerMember ?>" placeholder="Enter Family Member">
+							</div>
+							</td>
+						</tr>
+						<!-- heart disease -->
+						<tr>
+							<th scope='row'>Heart Disease</th>
+							<td><select class="form-control" id="heartyn" name="heartyn">
+							<option <?php echo $heartYN ?> value="Y">Yes</option>
+							<option <?php echo $heartYN ?> value="N">No</option>
+							</select></td>
+							<td>
+							<div id="heartMemberInfo">
+							<input type="text" class="form-control" name="heartMember" id="heartMember" value="<?php echo $heartMember ?>" placeholder="Enter Family Member">
+							</div>
+							</td>
+						</tr>
+						<!-- stroke -->
+						<tr>
+							<th scope='row'>Stroke</th>
+							<td><select class="form-control" id="strokeyn" name="strokeyn">
+							<option <?php echo $strokeYN ?> value="Y">Yes</option>
+							<option <?php echo $strokeYN ?> value="N">No</option>
+							</select></td>
+							<td>
+							<div id="strokeMemberInfo">
+							<input type="text" class="form-control" name="strokeMember" id="strokeMember" value="<?php echo $strokeMember ?>" placeholder="Enter Family Member">
+							</div>
+							</td>
+						</tr>
+						<!-- other -->
+						<tr>
+							<th scope='row'>Other</th>
+							<td><select class="form-control" id="otherHistoryYN" name="otherHistoryYN">
+							<option <?php echo $otherHistoryYN ?> value="Y">Yes</option>
+							<option <?php echo $otherHistoryYN ?> value="N">No</option>
+							</select></td>
+							<td>
+							<div id="otherMemberInfo">
+							<input type="text" class="form-control" name="otherMember" id="otherMember" value="<?php echo $otherMember ?>" placeholder="Enter Family Member">
+							</div>
+							</td>
+						</tr>
+				</tbody>
+			</table>
 			<!-- allergies -->
 			<h6 class="form-title" style="padding-top:5px;">Allergies:</h6>
+			<!-- allergy yn -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="allergyYN">Do you have any Allergies:</label>
+				<div class="col-sm-9">
+					<select class="form-control" style="width:25%" id="allergyYN" name="allergyYN">
+						<option <?php echo $allergyYesSelected ?> value="Y">Yes</option>
+						<option <?php echo $allergyNoSelected ?> value="N">No</option>
+					</select>
+				</div>
+			</div>
+			<!-- allergy info -->
+			<div class="form-group" id="allergyInfo">
+				<div class="form-group">
+				<input type="text" class="form-control" name="allergy" id="allergy" value="<?php echo $allergy ?>" placeholder="Enter Allergy/ies">
+				</div>
+			</div>
+
 			<!-- lifestyle -->
 			<h6 class="form-title" style="padding-top:5px;">Lifestyle:</h6>
+			<!-- regular exercise -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="regExerciseYN">Do you Regularly Exercise:</label>
+				<div class="col-sm-9">
+					<select class="form-control" style="width:25%" id="regExerciseYN" name="regExerciseYN">
+						<option <?php echo $regExerciseYN ?> value="Y">Yes</option>
+						<option <?php echo $regExerciseYN ?> value="N">No</option>
+					</select>
+				</div>
+			</div>
+			<!-- usual length -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="exerciseLength">How long is usual session:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="exerciseLength" id="exerciseLength" value="<?php echo $exerciseLength ?>" placeholder="Enter in Minutes">
+				</div>
+			</div>
+			<!-- exercise days a week -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="exerciseDays">Enter many days a week you exercise:</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" name="exerciseDays" id="exerciseDays" value="<?php echo $exerciseDays ?>" placeholder="Enter many days a week you exercise">
+				</div>
+			</div>
+			<!-- rate diet -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="diet">How would you rate your Diet:</label>
+				<div class="col-sm-9">
+					<select class="form-control" style="width:25%" id="diet" name="diet">
+						<option <?php echo $GoodSelected ?>>Good</option>
+						<option <?php echo $AverageSelected ?>>Average</option>
+						<option <?php echo $PoorSelected ?>>Poor</option>
+						<option <?php echo $VegetarianSelected ?>>Vegetarian</option>
+						<option <?php echo $VeganSelected ?>>Vegan</option>
+						<option <?php echo $lowFatSelected ?>>Low Fat</option>
+						<option <?php echo $lowSaltSelected ?>>Low Salt</option>
+					</select>
+				</div>
+			</div>
 			
 			<button class="btn bg-warning" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
 			</form>
@@ -516,5 +635,51 @@ $("#smokeryn").change(function() {
   }
 });
 $("#smokeryn").trigger("change");
+
+$("#canceryn").change(function() {
+  if ($(this).val() == "Y") {
+    $('#cancerMemberInfo').show();
+  } else {
+    $('#cancerMemberInfo').hide();
+  }
+});
+$("#canceryn").trigger("change");
+
+$("#heartyn").change(function() {
+  if ($(this).val() == "Y") {
+    $('#heartMemberInfo').show();
+  } else {
+    $('#heartMemberInfo').hide();
+  }
+});
+$("#heartyn").trigger("change");
+
+$("#strokeyn").change(function() {
+  if ($(this).val() == "Y") {
+    $('#strokeMemberInfo').show();
+  } else {
+    $('#strokeMemberInfo').hide();
+  }
+});
+$("#strokeyn").trigger("change");
+
+$("#otherHistoryYN").change(function() {
+  if ($(this).val() == "Y") {
+    $('#otherMemberInfo').show();
+  } else {
+    $('#otherMemberInfo').hide();
+  }
+});
+$("#otherHistoryYN").trigger("change");
+
+$("#allergyYN").change(function() {
+  if ($(this).val() == "Y") {
+    $('#allergyInfo').show();
+  } else {
+    $('#allergyInfo').hide();
+  }
+});
+$("#allergyYN").trigger("change");
+
 
 </script>

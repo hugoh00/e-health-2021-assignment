@@ -129,18 +129,40 @@ class Dashboard extends CI_Controller {
 			$thirdMedicationName = $this->input->post("thirdmedicationName");
 			$thirdMedicationDosage = $this->input->post("thirdmedicationDosage");
 			$thirdMedicationDuration = $this->input->post("thirdmedicationTaken");
-
+			// save medication info
 		}
-		// save medication info
+		
 
 		//smoking
-		// $smokingStatus, $smokerType, $smokerAge, $smokerHelp
-		// save smoking info
+		// $smokingYN, $smokerType, $smokerAge, $smokerHelp
+		$smokerYN = $this->input->post("smokeryn");
+		if ($smokerYN == "N" || $smokerYN == "X") {
+			// save smoker info now
+		} else {
+
+			$smokerType = $this->input->post("smokeType");
+			$smokerAge = $this->input->post("smokingAge");
+			$smokerHelp = $this->input->post("smokeHelp");
+			// save smoking info
+
+		}
+		
 
 		//alcohol use
 		// variable is $QUESTIONnumber_Score
 		// $oneScore, $twoScore, $threeScore, $fourScore, $fiveScore
 		// $sixScore, $sevenScore, $eightScore, $nineScore, $tenScore
+
+		$oneScore = $this->input->post("question1");
+		$twoScore = $this->input->post("question2");
+		$threeScore = $this->input->post("question3");
+		$fourScore = $this->input->post("question4");
+		$fiveScore = $this->input->post("question5");
+		$sixScore = $this->input->post("question6");
+		$sevenScore = $this->input->post("question7");
+		$eightScore = $this->input->post("question8");
+		$nineScore = $this->input->post("question9");
+		$tenScore = $this->input->post("question10");
 
 		//function checks whether they have a record if no -> insert if yes -> update
 
@@ -154,7 +176,7 @@ class Dashboard extends CI_Controller {
 		// $allergies
 		
 		//lifestyle
-		// $regExerciseYN, $exerciseLength, $exerciseDays, $thirdMedicationName
+		// $regExerciseYN, $exerciseLength, $exerciseDays, $diet
 
 		$this->questionnaireLoad($userID);
 	}
