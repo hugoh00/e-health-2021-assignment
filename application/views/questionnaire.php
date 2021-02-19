@@ -438,9 +438,9 @@
 			</div>
 			<!-- alcohol questions -->
 			<?php
+			$existingResponse = array();
 			foreach($alcoholResponses->result() as $row) {
-				echo $row->questionid;
-				echo "<br>";
+				$existingResponse[$row->questionid] = $row->response;
 			}
 			?>
 			<table class="table table-hover">
@@ -461,25 +461,46 @@
 						
 						foreach ($alcoholQuestions->result() as $row) {
 							//9 and 10 have 1 and 3 missing
+							$checked = $existingResponse[$row->GUID];
+							// now to see which was checked previously
+							if ($checked == "response0") {
+								$response0Checked = "checked";
+							} else if ($checked == "response1") {
+
+								$response1Checked = "checked";
+
+							} else if ($checked == "response2") {
+
+								$response2Checked = "checked";
+
+							} else if ($checked == "response3") {
+
+								$response3Checked = "checked";
+
+							} else if ($checked == "response4") {
+
+								$response4Checked = "checked";
+
+							}
 							echo "<tr>";
 							echo "<th scope='row'>$row->GUID</th>";
 							echo "<td>$row->Question</td>";
-							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response0'>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response0' $response0Checked>";
 							echo "$row->response0</td>";
 							if($row->GUID == 9 || $row->GUID == 10) {
 								echo "<td>$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked>";
 								echo "$row->response2</td>";
 								echo "<td>$row->response3</td>";
 							} else {
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response1'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response1' $response1Checked>";
 								echo "$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked>";
 								echo "$row->response2</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response3'>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response3' $response3Checked>";
 								echo "$row->response3</td>";
 							}
-							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response4'>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response4' $response4Checked>";
 							echo "$row->response4</td>";
 							echo "</tr>";
 						}

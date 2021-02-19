@@ -120,6 +120,7 @@ class Dashboard extends CI_Controller {
 		// $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration
 		// $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration
 		$medicationYN = $this->input->post("medicationyn");
+		echo $medicationYN;
 		if ($medicationYN == "N") {
 			// save medication info now
 			$this->Dashboard_model->saveMedication(base64_decode($userID), $medicationYN, 

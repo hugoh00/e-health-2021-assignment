@@ -300,17 +300,17 @@ class Dashboard_model extends CI_Model {
     {
         $this->db->set('Medication_YN', $medicationYN);
 
-        $this->db->set('Medication_YN', $firstMedicationName);
-        $this->db->set('Medication_YN', $firstMedicationDosage);
-        $this->db->set('Medication_YN', $firstMedicationDuration);
+        $this->db->set('Medication_1', $firstMedicationName);
+        $this->db->set('medication_dosage_1', $firstMedicationDosage);
+        $this->db->set('medication_frequency_1', $firstMedicationDuration);
 
-        $this->db->set('Medication_YN', $secondMedicationName);
-        $this->db->set('Medication_YN', $secondMedicationDosage);
-        $this->db->set('Medication_YN', $secondMedicationDuration);
+        $this->db->set('Medication_2', $secondMedicationName);
+        $this->db->set('medication_dosage_2', $secondMedicationDosage);
+        $this->db->set('medication_frequency_2', $secondMedicationDuration);
 
-        $this->db->set('Medication_YN', $thirdMedicationName);
-        $this->db->set('Medication_YN', $thirdMedicationDosage);
-        $this->db->set('Medication_YN', $thirdMedicationDuration);
+        $this->db->set('Medication_3', $thirdMedicationName);
+        $this->db->set('medication_dosage_3', $thirdMedicationDosage);
+        $this->db->set('medication_frequency_3', $thirdMedicationDuration);
 
         $this->db->where('userid', $id);
         $this->db->update('medication');
