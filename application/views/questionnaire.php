@@ -581,6 +581,35 @@
 			</table>
 			<!-- family medical history -->
 			<h6 class="form-title" style="padding-top:5px;">Family Medical History:</h6>
+			<?php
+			foreach ($medicalHistory->result() as $row) {
+				$cancerMember = $row->has_cancer;
+				$heartMember = $row->has_heart_disease;
+				$strokeMember = $row->has_stroke;
+				$otherMember = $row->has_other;
+
+				if (strlen($cancerMember) == 0) {
+					$cancerNo = "selected";
+				} else {
+					$cancerYes = "selected";
+				}
+				if (strlen($heartMember) == 0) {
+					$heartNo = "selected";
+				} else {
+					$heartYes = "selected";
+				}
+				if (strlen($strokeMember) == 0) {
+					$strokeNo = "selected";
+				} else {
+					$strokeYes = "selected";
+				}
+				if (strlen($otherMember) == 0) {
+					$otherHistoryNo = "selected";
+				} else {
+					$otherHistoryYes = "selected";
+				}
+			}
+			?>
 			<table class="table table-hover">
 				<thead class="thead-dark">
 					<tr class="table-info">
@@ -594,8 +623,8 @@
 						<tr>
 							<th scope='row'>Cancer</th>
 							<td><select class="form-control" id="canceryn" name="canceryn">
-							<option <?php echo $cancerYN ?> value="Y">Yes</option>
-							<option <?php echo $cancerYN ?> value="N">No</option>
+							<option <?php echo $cancerYes ?> value="Y">Yes</option>
+							<option <?php echo $cancerNo ?> value="N">No</option>
 							</select></td>
 							<td>
 							<div id="cancerMemberInfo">
@@ -607,8 +636,8 @@
 						<tr>
 							<th scope='row'>Heart Disease</th>
 							<td><select class="form-control" id="heartyn" name="heartyn">
-							<option <?php echo $heartYN ?> value="Y">Yes</option>
-							<option <?php echo $heartYN ?> value="N">No</option>
+							<option <?php echo $heartYes ?> value="Y">Yes</option>
+							<option <?php echo $heartNo ?> value="N">No</option>
 							</select></td>
 							<td>
 							<div id="heartMemberInfo">
@@ -620,8 +649,8 @@
 						<tr>
 							<th scope='row'>Stroke</th>
 							<td><select class="form-control" id="strokeyn" name="strokeyn">
-							<option <?php echo $strokeYN ?> value="Y">Yes</option>
-							<option <?php echo $strokeYN ?> value="N">No</option>
+							<option <?php echo $strokeYes ?> value="Y">Yes</option>
+							<option <?php echo $strokeNo ?> value="N">No</option>
 							</select></td>
 							<td>
 							<div id="strokeMemberInfo">
@@ -633,8 +662,8 @@
 						<tr>
 							<th scope='row'>Other</th>
 							<td><select class="form-control" id="otherHistoryYN" name="otherHistoryYN">
-							<option <?php echo $otherHistoryYN ?> value="Y">Yes</option>
-							<option <?php echo $otherHistoryYN ?> value="N">No</option>
+							<option <?php echo $otherHistoryYes ?> value="Y">Yes</option>
+							<option <?php echo $otherHistoryNo ?> value="N">No</option>
 							</select></td>
 							<td>
 							<div id="otherMemberInfo">
@@ -645,6 +674,17 @@
 				</tbody>
 			</table>
 			<!-- allergies -->
+			<?php
+
+			foreach ($allergy->result() as $row) {
+				$allergy = $row->allergy_details;
+				if (strlen($allergy) == 0) {
+					$allergyNoSelected = "selected";
+				} else {
+					$allergyYesSelected = "selected";
+				}
+			}
+			?>
 			<h6 class="form-title" style="padding-top:5px;">Allergies:</h6>
 			<!-- allergy yn -->
 			<div class="form-group row">
@@ -664,14 +704,40 @@
 			</div>
 
 			<!-- lifestyle -->
+			<?php
+
+			foreach ($lifestyle->result() as $row) {
+				$regExerciseYN = $row->exercise;
+				$exerciseLength = $row->exercise_minutes;
+				$exerciseDays = $row->exercise_days;
+				$diet = $row->diet;
+
+				if ($diet == "Good") {
+					$GoodSelected = "selected";
+				} else if ($diet == "Average") {
+					$AverageSelected = "selected";
+				} else if ($diet == "Poor") {
+					$PoorSelected = "selected";
+				} else if ($diet == "Vegetarian") {
+					$VegetarianSelected = "selected";
+				} else if ($diet == "Vegan") {
+					$VeganSelected = "selected";
+				} else if ($diet == "Low Fat") {
+					$lowFatSelected = "selected";
+				} else if ($diet == "Low Salt") {
+					$lowSaltSelected = "selected";
+				} 
+				
+			}
+			?>
 			<h6 class="form-title" style="padding-top:5px;">Lifestyle:</h6>
 			<!-- regular exercise -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="regExerciseYN">Do you Regularly Exercise:</label>
 				<div class="col-sm-9">
 					<select class="form-control" style="width:25%" id="regExerciseYN" name="regExerciseYN">
-						<option <?php echo $regExerciseYN ?> value="Y">Yes</option>
-						<option <?php echo $regExerciseYN ?> value="N">No</option>
+						<option <?php echo $regExerciseYes ?> value="Y">Yes</option>
+						<option <?php echo $regExerciseNo ?> value="N">No</option>
 					</select>
 				</div>
 			</div>

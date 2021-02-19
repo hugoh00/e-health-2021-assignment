@@ -356,7 +356,7 @@ class Dashboard_model extends CI_Model {
         $this->db->select('userid');
         //where userid = $id
         $this->db->where('userid' , $id);
-        //from the medication table
+        //from the smoking table
         $query = $this->db->get('smoking');
         //returns query result
         return $query->result();
@@ -523,4 +523,230 @@ class Dashboard_model extends CI_Model {
 
     }
 
+    // 
+    // medical history
+    // 
+
+    public function medicalHistory($id)
+    {
+        return $this->getMedicalHistory($id);
+    }
+    private function getMedicalHistory($id) 
+    {
+        $this->db->select('has_cancer, has_heart_disease, has_stroke, has_other');
+        $this->db->where('userid', $id);
+        $query = $this->db->get('medical_history');
+
+        return $query;
+    }
+    private function checkMedicalHistoryExist($id)
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        //from the medical_history table
+        $query = $this->db->get('medical_history');
+        //returns query result
+        return $query->result();
+    }
+    public function setMedicalHistory($id, $has_cancer, $has_heart_disease, 
+    $has_stroke, $has_other)
+    {
+        $check = sizeof($this->checkMedicalHistoryExist($id));
+
+        if ($check == 0) {
+            $this->insertMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other);
+        } else {
+            $this->updateMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other);
+        }
+    }
+    private function updateMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other)
+    {
+
+        $this->db->set('has_cancer', $has_cancer);
+        $this->db->set('has_heart_disease', $has_heart_disease);
+        $this->db->set('has_stroke', $has_stroke);
+        $this->db->set('has_other', $has_other);
+
+        $this->db->where('userid', $id);
+        $this->db->update('medical_history');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function insertMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other)
+    {
+        
+        $this->db->set('userid', $id);
+        $this->db->set('has_cancer', $has_cancer);
+        $this->db->set('has_heart_disease', $has_heart_disease);
+        $this->db->set('has_stroke', $has_stroke);
+        $this->db->set('has_other', $has_other);
+
+        $this->db->insert('medical_history');
+        
+
+        //check whether update statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 
+    // allergy
+    // 
+
+    public function allergy($id) 
+    {
+        // allergy_details allergies
+        return $this->getAllergy($id);
+    }
+    private function getAllergy($id) 
+    {
+        $this->db->select('allergy_details');
+        $this->db->where('userid', $id);
+        $query = $this->db->get('allergies');
+
+        return $query;
+    }
+    private function checkAllergyExist($id)
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        //from the allergies table
+        $query = $this->db->get('allergies');
+        //returns query result
+        return $query->result();
+    }
+
+    public function setAllergy($id, $allergy_details) 
+    {
+
+        $check = sizeof($this->checkAllergyExist($id));
+
+        if ($check == 0) {
+            $this->insertAllergy($id, $allergy_details);
+        } else {
+            $this->updateAllergy($id, $allergy_details);
+        }
+    }
+    private function insertAllergy($id, $allergy_details) 
+    {
+        $this->db->set('userid', $id);
+        $this->db->set('allergy_details', $allergy_details);
+
+        $this->db->insert('allergies');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function updateAllergy($id, $allergy_details) 
+    {
+        $this->db->set('allergy_details', $allergy_details);
+
+        $this->db->where('userid', $id);
+        $this->db->update('allergies');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    // 
+    // lifestyle
+    // 
+
+    public function lifestyle($id) 
+    {
+        return $this->getLifestyle($id);
+    }
+    private function getLifestyle($id)
+    {
+        $this->db->select('exercise, exercise_minutes, exercise_days, diet');
+        $this->db->where('userid', $id);
+        $query = $this->db->get('lifestyle');
+
+        return $query;
+    }
+    private function checkLifestyleExist($id) 
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        //from the lifestyle table
+        $query = $this->db->get('lifestyle');
+        //returns query result
+        return $query->result();
+    }
+    public function setLifestyle($id, $exercise, $exercise_minutes, 
+    $exercise_days, $diet)
+    {
+        $check = sizeof($this->checkLifestyleExist($id));
+
+        if ($check == 0) {
+            $this->insertLifestyle($id, $exercise, $exercise_minutes, $exercise_days, $diet);
+        } else {
+            $this->updateLifestyle($id, $exercise, $exercise_minutes, $exercise_days, $diet);
+        }
+    }
+    private function insertLifestyle($id, $exercise, 
+    $exercise_minutes, $exercise_days, $diet) 
+    {
+
+        $this->db->set('userid', $id);
+        $this->db->set('exercise', $exercise);
+        $this->db->set('exercise_minutes', $exercise_minutes);
+        $this->db->set('exercise_days', $exercise_days);
+        $this->db->set('diet', $diet);
+
+        $this->db->insert('lifestyle');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    private function updateLifestyle($id, $exercise, $exercise_minutes, $exercise_days, $diet)
+    {
+
+        $this->db->set('exercise', $exercise);
+        $this->db->set('exercise_minutes', $exercise_minutes);
+        $this->db->set('exercise_days', $exercise_days);
+        $this->db->set('diet', $diet);
+
+        $this->db->where('userid', $id);
+        $this->db->update('lifestyle');
+        
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

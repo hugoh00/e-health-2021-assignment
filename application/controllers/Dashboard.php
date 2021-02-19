@@ -46,7 +46,9 @@ class Dashboard extends CI_Controller {
 		$data['medication'] = $this->Dashboard_model->medication($data['id']);
 		$data['smoke'] = $this->Dashboard_model->smoke($data['id']);
 		$data['alcoholResponses'] = $this->Dashboard_model->alcoholResponses($data['id']);
-		
+		$data['medicalHistory'] = $this->Dashboard_model->medicalHistory($data['id']);
+		$data['allergy'] = $this->Dashboard_model->allergy($data['id']);
+		$data['lifestyle'] = $this->Dashboard_model->lifestyle($data['id']);
 		
 		
 		$this->load->view('header', $data);
@@ -120,7 +122,6 @@ class Dashboard extends CI_Controller {
 		// $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration
 		// $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration
 		$medicationYN = $this->input->post("medicationyn");
-		echo $medicationYN;
 		if ($medicationYN == "N") {
 			// save medication info now
 			$this->Dashboard_model->saveMedication(base64_decode($userID), $medicationYN, 
@@ -189,24 +190,42 @@ class Dashboard extends CI_Controller {
 		//family medical history
 		// $heartDiseaseYN, $heartDiseaseMember, $cancerYN, $cancerMember
 		// $strokeYN, $strokeMember, $otherYN, $otherMember
-		$heartDiseaseYN = $this->input->post("heartyn");
-		$heartDiseaseMember = $this->input->post("heartMember");
-
 		$cancerYN = $this->input->post("canceryn");
 		$cancerMember = $this->input->post("cancerMember");
 
-		$heartDiseaseYN = $this->input->post("strokeyn");
-		$heartDiseaseMember = $this->input->post("strokeMember");
+		$heartDiseaseYN = $this->input->post("heartyn");
+		$heartDiseaseMember = $this->input->post("heartMember");
 
-		$cancerYN = $this->input->post("otheryn");
-		$cancerMember = $this->input->post("otherMember");
+		$strokeYN = $this->input->post("strokeyn");
+		$strokeMember = $this->input->post("strokeMember");
 
+		$otherYN = $this->input->post("otheryn");
+		$otherMember = $this->input->post("otherMember");
+
+		if($cancerYN == "N") {
+			$cancerMember = "";
+		}
+		if($heartDiseaseYN == "N") {
+			$heartDiseaseMember = "";
+		}
+		if($strokeYN == "N") {
+			$strokeMember = "";
+		}
+		if($otherYN == "N") {
+			$otherMember = "";
+		}
 		//update/insert family history
+		$this->Dashboard_model->setMedicalHistory(base64_decode($userID)
+		, $cancerMember, $heartDiseaseMember, $strokeMember, $otherMember);
 
 		//allergies
 		// $allergies
 		$allergyYN = $this->input->post("allergyYN");
 		$allergies = $this->input->post("allergy");
+		if ($allergyYN == "N") {
+			$allergies = "";
+		}
+		$this->Dashboard_model->setAllergy(base64_decode($userID), $allergies);
 		
 		//lifestyle
 		// $regExerciseYN, $exerciseLength, $exerciseDays, $diet
@@ -215,6 +234,9 @@ class Dashboard extends CI_Controller {
 		$exerciseLength = $this->input->post("exerciseLength");
 		$exerciseDays = $this->input->post("exerciseDays");
 		$diet = $this->input->post("diet");
+
+		$this->Dashboard_model->setLifestyle(base64_decode($userID), $regExerciseYN, $exerciseLength, $exerciseDays, $diet);
+
 
 		$this->questionnaireLoad($userID);
 	}
