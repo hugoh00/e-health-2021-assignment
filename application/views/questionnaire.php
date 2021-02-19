@@ -75,8 +75,9 @@
 		}
 	}
 	?>
-	<div class="container-fluid">
+	<div class="container-fluid" style="background-color:#b3ffe0">
 		<h1>Questionnaire</h2>
+		<!-- <fieldset disabled> </fieldset> -->
 
 		<!-- Basic Information Form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
@@ -209,7 +210,7 @@
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 				
 			<form id="contactDetails" name="contactDetails" action="<?php echo base_url("index.php/contactInfo/" . base64_encode($id)); ?>" method="post">
-			<h4>Contact Information</h4>
+			<h4 class="form-title">Contact Information</h4>
 			<!-- address -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="address">Address:</label>
@@ -300,7 +301,7 @@
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 				
 			<form id="kinInfo" name="kinInfo" action="<?php echo base_url("index.php/emergencyContactInfo/" . base64_encode($id)); ?>" method="post">
-			<h4>Emergency Contact Information</h4>
+			<h4 class="form-title">Emergency Contact Information</h4>
 			<!-- kin name -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinName">Full Name:</label>
@@ -327,9 +328,165 @@
 		</div>
 
 		<br>
+
+		<!-- questionnaire form -->
+		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
+				
+			<form id="questions" name="questions" action="<?php echo base_url("index.php/questionnaire/" . base64_encode($id)); ?>" method="post">
+			<h4 class="form-title">Questionnaire</h4>
+			<!-- medication -->
+			<h6 class="form-title">Medication:</h6>
+			<!-- medication yn -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="medicationyn">Do you take Medication:</label>
+				<div class="col-sm-9">
+					<select class="form-control" style="width:25%" id="medicationyn" name="medicationyn">
+						<option <?php echo $medYesSelected ?> value="Y">Yes</option>
+						<option <?php echo $medNoSelected ?> value="N">No</option>
+					</select>
+				</div>
+			</div>
+			<!-- medication name, dosage, and how often you take it -->
+			<div class="form-group" id="medicationInfo">
+				<div class="form-row">
+					<div class="col">
+						<label>Medication Name</label>
+					</div>
+					<div class="col">
+						<label>Medication Dosage</label>
+					</div>
+					<div class="col">
+						<label>How often taken</label>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<input type="text" class="form-control" name="firstmedicationName" id="firstmedicationName" placeholder="Enter Medication Name">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="firstmedicationDosage" id="firstmedicationDosage" placeholder="Enter Medication Dosage">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="firstmedicationTaken" id="firstmedicationTaken" placeholder="How often do you take the medication">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<input type="text" class="form-control" name="secondmedicationName" id="secondmedicationName" placeholder="Enter Medication Name">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="secondmedicationDosage" id="secondmedicationDosage" placeholder="Enter Medication Dosage">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="secondmedicationTaken" id="secondmedicationTaken" placeholder="How often do you take the medication">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationName" id="thirdmedicationName" placeholder="Enter Medication Name">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationDosage" id="thirdmedicationDosage" placeholder="Enter Medication Dosage">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationTaken" id="thirdmedicationTaken" placeholder="How often do you take the medication">
+					</div>
+				</div>
+			</div>
+			<!-- smoking -->
+			<h6 class="form-title" style="padding-top:5px;">Smoking:</h6>
+			<!-- smoker yn -->
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="smokeryn">Do you Smoke:</label>
+				<div class="col-sm-9">
+					<select class="form-control" style="width:25%" id="smokeryn" name="smokeryn">
+						<option <?php echo $smokerYesSelected ?> value="Y">Yes</option>
+						<option <?php echo $smokerNoSelected ?> value="N">No</option>
+						<option <?php echo $smokerExSelected ?> value="X">Ex-Smoker</option>
+					</select>
+				</div>
+			</div>
+			<!-- smoker info -->
+			<div class="form-group" id="smokerInfo">
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label" for="smokeType">What do you use to Smoke:</label>
+					<div class="col-sm-9">
+						<select class="form-control" style="width:50%" id="smokeType" name="smokeType">
+							<option <?php echo $cigarette ?> value="cigarette">Cigarette</option>
+							<option <?php echo $cigar ?> value="cigar">Cigars</option>
+							<option <?php echo $ecigarette ?> value="e-cigarette">E-cigarettes</option>
+							<option <?php echo $pipe ?> value="pipe">Pipe</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label" for="smokingAge">How old were you when you started smoking?:</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="smokingAge" id="smokingAge" value="<?php echo $smokingAge ?>" placeholder="Enter Full Name">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label" for="smokeHelp">Do you want Help to quit Smoking:</label>
+					<div class="col-sm-9">
+						<select class="form-control" style="width:25%" id="smokeHelp" name="smokeHelp">
+							<option <?php echo $smokerHelpYesSelected ?> value="Y">Yes</option>
+							<option <?php echo $smokerHelpNoSelected ?> value="N">No</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<!-- alcohol questions -->
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr class="table-info">
+						<th scope="col">#</th>
+						<th scope="col">Question</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col">Scoring System</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- loop through the query result passed in to add questions etc -->
+					<?php
+
+					?>
+					<tr>
+						<th scope="row">1</th>
+					</tr>
+				</tbody>
+			</table>
+			<!-- lifestyle -->
+			<h6 class="form-title" style="padding-top:5px;">Lifestyle:</h6>
+		</div>
+
+		<br>
 	</div>
 
 	</body>
 
 
 </html>
+<script>
+
+$("#medicationyn").change(function() {
+  if ($(this).val() == "Y") {
+    $('#medicationInfo').show();
+  } else {
+    $('#medicationInfo').hide();
+  }
+});
+$("#medicationyn").trigger("change");
+
+$("#smokeryn").change(function() {
+  if ($(this).val() == "Y") {
+    $('#smokerInfo').show();
+  } else {
+    $('#smokerInfo').hide();
+  }
+});
+$("#smokeryn").trigger("change");
+
+</script>

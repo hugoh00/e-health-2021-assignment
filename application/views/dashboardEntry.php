@@ -13,19 +13,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 echo <<<_END
 
-	<body>
+	<body style="background-color: #333">
 	
 
 	<div id="container">
 
-		<h1>$username's Dashboard</h1>
+		<h1 style="color:white; text-align:center;">$username's Dashboard</h1>
 		
 		
 
 		<!-- entry form  -->
 		<form id="dashboardentry" action="dashboard" method="post">
 		<input type="hidden" name="dshUser" id="dshUser" value=$username>
-		<p><button class="btn btn-primary" type="submit" name="entry" value="entry">Enter</button>
+		<div class="text-center">
+		<button class="btn btn-success" type="submit" name="entry" value="entry">Enter</button>
+		</div>
 		</form>
 _END;
 ?>

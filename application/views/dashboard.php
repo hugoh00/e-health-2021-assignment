@@ -1,5 +1,5 @@
 
-<body style="background-color: #00cc00">
+<body style="background-color: #b3ffe0">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -29,8 +29,8 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid">
-	<h1>E-Health Dashboard</h2>
+	<h1>E-Health Dashboard</h1>
+	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:10px;">
 	<p>Welcome to E-Health <?php echo $username ?>.</p>
 	<h3>What you can do:</h3>
 	<ul class="list-group">
@@ -46,18 +46,6 @@
 		?>
 		<li class="list-group-item bg-danger">Logout</li>
 	</ul>
-
-	<?php
-echo $id;
-$test = base64_encode($id);
-echo "----"; 
-echo $test;
-echo "----"; 
-echo base64_decode($test);
-echo "----"; 
-echo $username;
-echo var_dump($staff);
-?>
 	</div>
 
 	</body>
