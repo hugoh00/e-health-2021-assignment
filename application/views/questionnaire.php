@@ -336,6 +336,33 @@
 			<form id="questions" name="questions" action="<?php echo base_url("index.php/questionnaire/" . base64_encode($id)); ?>" method="post">
 			<h4 class="form-title">Questionnaire</h4>
 			<!-- medication -->
+			<?php
+			//set all contact info with a loop round data passed in from a query
+		foreach ($medication->result() as $row) {
+			// set variables to populate fields
+			// $medicationyn, 
+			$medicationyn = $row->Medication_YN;
+
+			$firstmedicationName = $row->Medication_1;
+			$secondmedicationName = $row->Medication_2;
+			$thirdmedicationName = $row->Medication_3;
+
+			$firstmedicationDosage = $row->medication_dosage_1;
+			$secondmedicationDosage = $row->medication_dosage_2;
+			$thirdmedicationDosage = $row->medication_dosage_3;
+
+			$firstmedicationTaken = $row->medication_frequency_1;
+			$secondmedicationTaken = $row->medication_frequency_2;
+			$thirdmedicationTaken = $row->medication_frequency_3;
+
+			//medication check
+			if ($medicationyn == "Y") {
+				$medYesSelected = "selected";
+			} else if ($medicationyn == "N") {
+				$medNoSelected = "selected";
+			} 
+		}
+		?>
 			<h6 class="form-title">Medication:</h6>
 			<!-- medication yn -->
 			<div class="form-group row">
@@ -362,40 +389,84 @@
 				</div>
 				<div class="form-row">
 					<div class="col">
-						<input type="text" class="form-control" name="firstmedicationName" id="firstmedicationName" placeholder="Enter Medication Name">
+						<input type="text" class="form-control" name="firstmedicationName" id="firstmedicationName" 
+						value="<?php echo $firstmedicationName ?>" placeholder="Enter Medication Name">
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" name="firstmedicationDosage" id="firstmedicationDosage" placeholder="Enter Medication Dosage">
+						<input type="text" class="form-control" name="firstmedicationDosage" id="firstmedicationDosage" 
+						value="<?php echo $firstmedicationDosage ?>" placeholder="Enter Medication Dosage">
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" name="firstmedicationTaken" id="firstmedicationTaken" placeholder="How often do you take the medication">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col">
-						<input type="text" class="form-control" name="secondmedicationName" id="secondmedicationName" placeholder="Enter Medication Name">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" name="secondmedicationDosage" id="secondmedicationDosage" placeholder="Enter Medication Dosage">
-					</div>
-					<div class="col">
-						<input type="text" class="form-control" name="secondmedicationTaken" id="secondmedicationTaken" placeholder="How often do you take the medication">
+						<input type="text" class="form-control" name="firstmedicationTaken" id="firstmedicationTaken" 
+						value="<?php echo $firstmedicationTaken ?>" placeholder="How often do you take the medication">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="col">
-						<input type="text" class="form-control" name="thirdmedicationName" id="thirdmedicationName" placeholder="Enter Medication Name">
+						<input type="text" class="form-control" name="secondmedicationName" id="secondmedicationName" 
+						value="<?php echo $secondmedicationName ?>" placeholder="Enter Medication Name">
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" name="thirdmedicationDosage" id="thirdmedicationDosage" placeholder="Enter Medication Dosage">
+						<input type="text" class="form-control" name="secondmedicationDosage" id="secondmedicationDosage" 
+						value="<?php echo $secondmedicationDosage ?>" placeholder="Enter Medication Dosage">
 					</div>
 					<div class="col">
-						<input type="text" class="form-control" name="thirdmedicationTaken" id="thirdmedicationTaken" placeholder="How often do you take the medication">
+						<input type="text" class="form-control" name="secondmedicationTaken" id="secondmedicationTaken" 
+						value="<?php echo $secondmedicationTaken ?>" placeholder="How often do you take the medication">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationName" id="thirdmedicationName" 
+						value="<?php echo $thirdmedicationName ?>" placeholder="Enter Medication Name">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationDosage" id="thirdmedicationDosage" 
+						value="<?php echo $thirdmedicationDosage ?>" placeholder="Enter Medication Dosage">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" name="thirdmedicationTaken" id="thirdmedicationTaken" 
+						value="<?php echo $thirdmedicationTaken ?>" placeholder="How often do you take the medication">
 					</div>
 				</div>
 			</div>
 			<!-- smoking -->
 			<h6 class="form-title" style="padding-top:5px;">Smoking:</h6>
+			<?php
+			foreach ($smoke->result() as $row) {
+				$smokeryn = $row->smoke_status;
+				$smokeType = $row->smoke_type;
+				$smokingAge = $row->start_smoking;
+				$smokeHelp = $row->quit_smoking;
+
+				//smoker check
+				if ($smokeryn == "Y") {
+					$smokerYesSelected = "selected";
+				} else if ($smokeryn == "N") {
+					$smokerNoSelected = "selected";
+				} else if ($smokeryn == "X") {
+					$smokerExSelected = "selected";
+				}
+
+				//type check
+				if ($smokeType == "cigarette") {
+					$cigarette = "selected";
+				} else if ($smokeType == "cigar") {
+					$cigar = "selected";
+				} else if ($smokeType == "e-cigarette") {
+					$ecigarette = "selected";
+				} else if ($smokeType == "pipe") {
+					$pipe = "selected";
+				}
+
+				//smoker help
+				if ($smokeHelp == "Y") {
+					$smokerHelpYesSelected = "selected";
+				} else if ($smokeHelp == "N") {
+					$smokerHelpNoSelected = "selected";
+				}
+			}
+			?>
 			<!-- smoker yn -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="smokeryn">Do you Smoke:</label>
@@ -423,7 +494,8 @@
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label" for="smokingAge">How old were you when you started smoking?:</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" name="smokingAge" id="smokingAge" value="<?php echo $smokingAge ?>" placeholder="Enter Full Name">
+						<input type="text" class="form-control" name="smokingAge" id="smokingAge" 
+						value="<?php echo $smokingAge ?>" placeholder="Enter Full Name">
 					</div>
 				</div>
 				<div class="form-group row">
