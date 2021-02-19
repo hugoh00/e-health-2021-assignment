@@ -1,5 +1,5 @@
 
-<body style="background-color: #00cc00">
+<body style="background-color: #b3ffe0">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -451,15 +451,43 @@
 				<tbody>
 					<!-- loop through the query result passed in to add questions etc -->
 					<?php
-
+						
+						foreach ($alcoholQuestions->result() as $row) {
+							//9 and 10 have 1 and 3 missing
+							echo "<tr>";
+							echo "<th scope='row'>$row->GUID</th>";
+							echo "<td>$row->Question</td>";
+							echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response0'>";
+							echo "$row->response0</td>";
+							if($row->GUID == 9 || $row->GUID == 10) {
+								echo "<td>$row->response1</td>";
+								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response2'>";
+								echo "$row->response2</td>";
+								echo "<td>$row->response3</td>";
+							} else {
+								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response1'>";
+								echo "$row->response1</td>";
+								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response2'>";
+								echo "$row->response2</td>";
+								echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response3'>";
+								echo "$row->response3</td>";
+							}
+							echo "<td><input class='form-check-input' type='radio' name='question . $row->GUID' id='question . $row->GUID' value='response4'>";
+							echo "$row->response4</td>";
+							echo "</tr>";
+						}
 					?>
-					<tr>
-						<th scope="row">1</th>
-					</tr>
 				</tbody>
 			</table>
+			<!-- family medical history -->
+			<h6 class="form-title" style="padding-top:5px;">Family Medical History:</h6>
+			<!-- allergies -->
+			<h6 class="form-title" style="padding-top:5px;">Allergies:</h6>
 			<!-- lifestyle -->
 			<h6 class="form-title" style="padding-top:5px;">Lifestyle:</h6>
+			
+			<button class="btn bg-warning" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
+			</form>
 		</div>
 
 		<br>

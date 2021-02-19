@@ -41,6 +41,8 @@ class Dashboard extends CI_Controller {
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
 		$data['existingKinInfo'] = $this->Dashboard_model->existingKinInfo($data['id']);
+		$data['alcoholQuestions'] = $this->Dashboard_model->alcoholQuestions();
+		
 		
 		$this->load->view('header', $data);
 		if($data['staff'] == true) {
@@ -102,6 +104,57 @@ class Dashboard extends CI_Controller {
 		$telephone = $this->input->post("kinNumber");
 
 		$this->Dashboard_model->getKinInfo(base64_decode($userID),$name, $relationship, $telephone);
+
+		$this->questionnaireLoad($userID);
+	}
+	public function questionnaire($userID) 
+	{
+		//medication
+		// $medicationYN
+		// $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration
+		// $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration
+		// $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration
+		$medicationYN = $this->input->post("medicationyn");
+		if ($medicationYN == "N") {
+			// save medication info now
+		} else {
+			$firstMedicationName = $this->input->post("firstmedicationName");
+			$firstMedicationDosage = $this->input->post("firstmedicationDosage");
+			$firstMedicationDuration = $this->input->post("firstmedicationTaken");
+
+			$secondMedicationName = $this->input->post("secondmedicationName");
+			$secondMedicationDosage = $this->input->post("secondmedicationDosage");
+			$secondMedicationDuration = $this->input->post("secondmedicationTaken");
+
+			$thirdMedicationName = $this->input->post("thirdmedicationName");
+			$thirdMedicationDosage = $this->input->post("thirdmedicationDosage");
+			$thirdMedicationDuration = $this->input->post("thirdmedicationTaken");
+
+		}
+		// save medication info
+
+		//smoking
+		// $smokingStatus, $smokerType, $smokerAge, $smokerHelp
+		// save smoking info
+
+		//alcohol use
+		// variable is $QUESTIONnumber_Score
+		// $oneScore, $twoScore, $threeScore, $fourScore, $fiveScore
+		// $sixScore, $sevenScore, $eightScore, $nineScore, $tenScore
+
+		//function checks whether they have a record if no -> insert if yes -> update
+
+		//family medical history
+		// $heartDiseaseYN, $heartDiseaseMember, $cancerYN, $cancerMember
+		// $strokeYN, $strokeMember, $otherYN, $otherMember
+
+		//update/insert family history
+
+		//allergies
+		// $allergies
+		
+		//lifestyle
+		// $regExerciseYN, $exerciseLength, $exerciseDays, $thirdMedicationName
 
 		$this->questionnaireLoad($userID);
 	}

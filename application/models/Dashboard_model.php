@@ -74,6 +74,29 @@ class Dashboard_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result();
     }
+    public function alcoholQuestions() 
+    {
+        return $this->getAlcoholQuestions();
+    }
+    private function getAlcoholQuestions()
+    {
+        // sql statement in full
+//         SELECT alcohol_questions.GUID, alcohol_questions.Question, 
+//         alcohol_options.response0, alcohol_options.response1, 
+//         alcohol_options.response2, alcohol_options.response3, 
+//         alcohol_options.response4
+//         FROM alcohol_questions
+//         JOIN alcohol_options ON alcohol_options.GUID = alcohol_questions.optionsid
+           $this->db->select("alcohol_questions.GUID, alcohol_questions.Question, 
+           alcohol_options.response0, alcohol_options.response1, 
+           alcohol_options.response2, alcohol_options.response3, 
+           alcohol_options.response4"); 
+           $this->db->from('alcohol_questions');
+           $this->db->join('alcohol_options', 'alcohol_options.GUID = alcohol_questions.optionsid');
+
+           $query = $this->db->get();
+           return $query;
+    }
 
     
     public function existingBasicInfo($id)
