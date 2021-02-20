@@ -37,6 +37,7 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+		$data['questionnaireStatus'] = $this->Dashboard_model->checkStatus($data['id']);
 
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
@@ -86,6 +87,7 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+		$data['questionnaire'] = $this->Dashboard_model->retrieveQuestionnaires($data['username']);
 
 		$this->load->view('header', $data);
 		$this->load->view('completedQuestionnaires', $data);
@@ -270,5 +272,31 @@ class Dashboard extends CI_Controller {
 
 
 		$this->questionnaireLoad($userID);
+	}
+	// put a second variable into url status 
+	// if staff true completed passed through
+	// if false pending
+	public function submitQuestionnaire($userID) 
+	{
+		$user =  $this->Dashboard_model->getUsername(base64_decode($userID));
+		$privilege = $this->Dashboard_model->checkAccountType($user);
+		$confirmed = "confirmed";
+		$pending = "pending";
+
+		if ($privilege == true) {
+			$check = $this->Dashboard_model->submitQuestionnaire(base64_decode($userID), $confirmed);
+		} else {
+			$check = $this->Dashboard_model->submitQuestionnaire(base64_decode($userID), $pending);
+		}
+
+		if($check == true) {
+			$this->questionnaireLoad($userID);
+		} else {
+			echo $check;
+			$this->questionnaireLoad($userID);
+		}
+
+		
+
 	}
 }

@@ -767,14 +767,14 @@ class Dashboard_model extends CI_Model {
 
     public function submitQuestionnaire($id, $status)
     {
-        $this->updatingStatus($id, $status);
+        return $this->updatingStatus($id, $status);
     }
 
     private function updatingStatus($id, $status) 
     {
         //default values which will be checked
-        $errorMessage = "";
         $valid = true;
+        $errorMessage = "";
 
         $medicationCheck = sizeof($this->checkMedicationExists($id));
         $smokeCheck = sizeof($this->checkSmokeExist($id));
@@ -808,12 +808,16 @@ class Dashboard_model extends CI_Model {
             $errorMessage = $errorMessage . "You need to complete the Lifestyle form. ";
         }
 
-        // once checks are done
-        if($valid == true) {
-            return $valid;
+        
+        if ($valid == true) {
+            $this->updateStatus($id, $status);
         } else {
             return $errorMessage;
         }
+        
+        
+
+        return $valid;
     }
 
     public function retrieveQuestionnaires($username) 
@@ -831,5 +835,40 @@ class Dashboard_model extends CI_Model {
         //from the users table
         $query = $this->db->get('users');
         return $query->result();
+    }
+
+    public function checkStatus($id) {
+        return $this->getStatus($id);
+    }
+    private function getStatus($id) 
+    {
+        $this->db->select('GUID');
+        $this->db->where('GUID', $id);
+        $this->db->like('status', 'pending');
+        $this->db->or_like('status', 'completed');
+        //from the users table
+        $query = $this->db->get('users');
+        $check = sizeof($query->result());
+        if ($check == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+    private function updateStatus($id, $status)
+    {
+        $this->db->set('status', $status);
+
+        $this->db->where('GUID', $id);
+        $this->db->update('users');
+
+        //check whether insert statement has been executed
+        if ($this->db->affected_rows() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

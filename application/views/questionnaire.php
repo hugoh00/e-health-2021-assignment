@@ -2,7 +2,7 @@
 <body style="background-color: #b3ffe0">
 <!-- <fieldset disabled> </fieldset> -->
 <?php
-	if($staff == true) {
+	if($staff == true || $questionnaireStatus == true) {
 		$fieldsetBegin = "<fieldset disabled>";
 		$fieldsetEnd = "</fieldset>";
 	}
@@ -787,6 +787,35 @@
 			<button class="btn bg-warning" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
 			</form>
 		<?php echo "$fieldsetEnd"; ?>
+		</div>
+
+		<br>
+		<?php
+		//set all kin contact info with a loop round data passed in from a query
+		foreach ($existingKinInfo->result() as $row) {
+			// set variables to populate fields
+			// $kin_name, $kin_relationship, $kin_telephone
+			$kinName = $row->kin_name;
+			$kinRelationship = $row->kin_relationship;
+			$kinNumber = $row->kin_telephone;
+		}
+	?>
+
+		<!-- submittion form -->
+		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
+			<?php 
+			if ($staff == true) {
+				$buttonInfo = "Sign Questionnaire Off";
+				$buttonClass = "btn bg-success";
+			} else {
+				$buttonInfo = "Complete Questionnaire";
+				$buttonClass = "btn bg-warning";
+			}
+			
+			?>
+			<form id="submittionform" name="submittionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
+			<button class="<?php echo $buttonClass; ?>" type="submit" name="submittion" id="submittion" value="submittion"><?php echo $buttonInfo; ?></button>
+			</form>
 		</div>
 
 		<br>
