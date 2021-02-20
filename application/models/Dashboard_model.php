@@ -69,7 +69,7 @@ class Dashboard_model extends CI_Model {
         $this->db->select('username');
         //where $username = username AND email is LIKE '%@ehealth.com'
         $this->db->where('username', $username);
-        $this->db->like('email', 'ehealth.com');
+        $this->db->like('email', 'ehealth.com', 'before');
         //from the users table
         $query = $this->db->get('users');
         return $query->result();
@@ -467,7 +467,7 @@ class Dashboard_model extends CI_Model {
         //where userid = $id
         $this->db->where('userid' , $id);
         $this->db->where('questionid', $questionid);
-        //from the medication table
+        //from the alcohol_responses table
         $query = $this->db->get('alcohol_responses');
         //returns query result
         $check = sizeof($query->result());
@@ -477,6 +477,17 @@ class Dashboard_model extends CI_Model {
         } else {
             $this->updateAlcoholResponses($id, $questionid, $response);
         }
+
+    }
+    private function checkAllAlcoholResponsesExists($id) 
+    {
+        $this->db->select('userid');
+        //where userid = $id
+        $this->db->where('userid' , $id);
+        //from the alcohol_responses table
+        $query = $this->db->get('alcohol_responses');
+        //returns query result
+        return $query->result();
 
     }
     private function updateAlcoholResponses($id, $questionid, $response) 
@@ -748,5 +759,77 @@ class Dashboard_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    // 
+    // completed questionnaires
+    // 
+
+    public function submitQuestionnaire($id, $status)
+    {
+        $this->updatingStatus($id, $status);
+    }
+
+    private function updatingStatus($id, $status) 
+    {
+        //default values which will be checked
+        $errorMessage = "";
+        $valid = true;
+
+        $medicationCheck = sizeof($this->checkMedicationExists($id));
+        $smokeCheck = sizeof($this->checkSmokeExist($id));
+        $alcoholResponsesCheck = sizeof($this->checkAllAlcoholResponsesExists($id));
+        $medicalHistoryCheck = sizeof($this->checkMedicalHistoryExist($id));
+        $allergyCheck = sizeof($this->checkAllergyExist($id));
+        $lifestyleCheck = sizeof($this->checkLifestyleExist($id));
+
+        if($medicationCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Medication form. ";
+        }
+        if($smokeCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Smoking form. ";
+        }
+        if($alcoholResponsesCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Alcohol Responses Sheet. ";
+        }
+        if($medicalHistoryCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Medical History form. ";
+        }
+        if($allergyCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Allergy form. ";
+        }
+        if($lifestyleCheck == 0) {
+            $valid = false;
+            $errorMessage = $errorMessage . "You need to complete the Lifestyle form. ";
+        }
+
+        // once checks are done
+        if($valid == true) {
+            return $valid;
+        } else {
+            return $errorMessage;
+        }
+    }
+
+    public function retrieveQuestionnaires($username) 
+    {
+        $check = $this->checkAccountType($username);
+        if ($check == true) {
+            return $this->questionnaireRetrieval();
+        }
+    }
+    private function questionnaireRetrieval() 
+    {
+        $this->db->select('GUID, firstname, surname, status');
+        $this->db->like('status', 'pending');
+        $this->db->or_like('status', 'completed');
+        //from the users table
+        $query = $this->db->get('users');
+        return $query->result();
     }
 }

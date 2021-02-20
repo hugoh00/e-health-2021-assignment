@@ -15,7 +15,7 @@
 					$class = "nav-item nav-link";
 					$active = $class . " active";
 					if($staff == true) {
-						$questionnaire = base_url("index.php/questionnaireLoad/" . $indicator);
+						$questionnaire = base_url("index.php/completedQuestionnaireLoad/" . $indicator);
 						$data = base_url("index.php/dataLoad/" . $indicator);
 						echo "<a class='$active' href='$questionnaire'>Questionnaires</a>";
 						echo "<a class='$class' href='$data'>Data</a>";

@@ -15,7 +15,7 @@
 					$class = "nav-item nav-link";
 					$active = $class . " active";
 					if($staff == true) {
-						$questionnaire = base_url("index.php/questionnaireLoad/" . $indicator);
+						$questionnaire = base_url("index.php/completedQuestionnaireLoad/" . $indicator);
 						$data = base_url("index.php/dataLoad/" . $indicator);
 						echo "<a class='$class' href='$questionnaire'>Questionnaires</a>";
 						echo "<a class='$active' href='$data'>Data</a>";
@@ -33,18 +33,7 @@
 	<div class="container-fluid">
 	<h1>E-Health Dashboard</h2>
 	<p>Welcome to E-Health </p>
-	<?php
-echo $id;
-$test = base64_encode($id);
-echo "----"; 
-echo $test;
-echo "----"; 
-echo base64_decode($test);
-echo "----"; 
-echo $username;
-echo var_dump($staff);
-?>
-	</div>
+	
 
 	</body>
 

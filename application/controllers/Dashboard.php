@@ -52,12 +52,43 @@ class Dashboard extends CI_Controller {
 		
 		
 		$this->load->view('header', $data);
-		if($data['staff'] == true) {
-			$this->load->view('completedQuestionnaires', $data);
-		} else {
-			$this->load->view('questionnaire', $data);
-		}
+		$this->load->view('questionnaire', $data);
+			
+	}
+	public function questionnaireAuditLoad($staffID, $userID)
+	{
+		$data['appName'] = $this->Dashboard_model->getName();
+		$data['id'] = base64_decode($staffID);
+		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
+		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$data['user'] = base64_decode($userID);
+
+		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['user']);
+		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['user']);
+		$data['existingKinInfo'] = $this->Dashboard_model->existingKinInfo($data['user']);
+		$data['alcoholQuestions'] = $this->Dashboard_model->alcoholQuestions();
+
+		$data['medication'] = $this->Dashboard_model->medication($data['user']);
+		$data['smoke'] = $this->Dashboard_model->smoke($data['user']);
+		$data['alcoholResponses'] = $this->Dashboard_model->alcoholResponses($data['user']);
+		$data['medicalHistory'] = $this->Dashboard_model->medicalHistory($data['user']);
+		$data['allergy'] = $this->Dashboard_model->allergy($data['user']);
+		$data['lifestyle'] = $this->Dashboard_model->lifestyle($data['user']);
 		
+		
+		$this->load->view('header', $data);
+		$this->load->view('questionnaire', $data);
+	}
+	public function completedQuestionnaireLoad($userID)
+	{
+		$data['appName'] = $this->Dashboard_model->getName();
+		$data['id'] = base64_decode($userID);
+		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
+		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$this->load->view('header', $data);
+		$this->load->view('completedQuestionnaires', $data);
 	}
 	public function dataLoad($userID) 
 	{

@@ -62,6 +62,8 @@ $route['dashboard/(:any)'] = 'dashboard/$1';
 $route['dashboardLoad/(:any)'] = 'Dashboard/dashboardLoad/$1';
 $route['dataLoad/(:any)'] = 'Dashboard/dataLoad/$1';
 $route['questionnaireLoad/(:any)'] = 'Dashboard/questionnaireLoad/$1';
+$route['completedQuestionnaireLoad/(:any)'] = 'Dashboard/completedQuestionnaireLoad/$1';
+$route['questionnaireAuditLoad/(:any)/(:any)'] = 'Dashboard/questionnaireAuditLoad/$1/$2';
 
 
 $route['basicInfo/(:any)'] = 'Dashboard/basicInfoSave/$1';

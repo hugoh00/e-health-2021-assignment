@@ -1,5 +1,12 @@
 
 <body style="background-color: #b3ffe0">
+<!-- <fieldset disabled> </fieldset> -->
+<?php
+	if($staff == true) {
+		$fieldsetBegin = "<fieldset disabled>";
+		$fieldsetEnd = "</fieldset>";
+	}
+?>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -15,9 +22,10 @@
 					$class = "nav-item nav-link";
 					$active = $class . " active";
 					if($staff == true) {
-						$questionnaire = base_url("index.php/questionnaireLoad/" . $indicator);
+						$questionnaire = base_url("index.php/completedQuestionnaireLoad/" . $indicator);
 						$data = base_url("index.php/dataLoad/" . $indicator);
-						echo "<a class='$active' href='$questionnaire'>Questionnaires</a>";
+						echo "<a class='$active' href='#'>Current Questionnaire</a>";
+						echo "<a class='$class' href='$questionnaire'>Questionnaires</a>";
 						echo "<a class='$class' href='$data'>Data</a>";
 					} else {
 						$questionnaire = base_url("index.php/questionnaireLoad/" . $indicator);
@@ -78,11 +86,10 @@
 	?>
 	<div class="container-fluid" style="background-color:#b3ffe0">
 		<h1>Questionnaire</h2>
-		<!-- <fieldset disabled> </fieldset> -->
 
 		<!-- Basic Information Form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
-				
+		<?php echo "$fieldsetBegin"; ?>
 			<form id="basicInfo" name="basicInfo" action="<?php echo base_url("index.php/basicInfo/" . base64_encode($id)); ?>" method="post">
 			<h4>Basic Information</h4>
 			<!-- Title -->
@@ -177,6 +184,7 @@
 
 			<button class="btn bg-warning" type="submit" name="basicInfoSave" id="basicInfoSave" value="basicInfoSave">Save</button>
 			</form>
+			<?php echo "$fieldsetEnd"; ?>
 		</div>
 
 		<br>
@@ -209,6 +217,7 @@
 	?>
 		<!-- Location and Number Contact Details form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
+		<?php echo "$fieldsetBegin"; ?>
 				
 			<form id="contactDetails" name="contactDetails" action="<?php echo base_url("index.php/contactInfo/" . base64_encode($id)); ?>" method="post">
 			<h4 class="form-title">Contact Information</h4>
@@ -284,6 +293,7 @@
 
 			<button class="btn bg-warning" type="submit" name="contactDetailsSave" id="contactDetailsSave" value="contactDetailsSave">Save</button>
 			</form>
+		<?php echo "$fieldsetEnd"; ?>
 		</div>
 
 		<br>
@@ -301,6 +311,7 @@
 		<!-- Kin Relationship Contact Details form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 				
+		<?php echo "$fieldsetBegin"; ?>
 			<form id="kinInfo" name="kinInfo" action="<?php echo base_url("index.php/emergencyContactInfo/" . base64_encode($id)); ?>" method="post">
 			<h4 class="form-title">Emergency Contact Information</h4>
 			<!-- kin name -->
@@ -326,6 +337,7 @@
 			</div>
 			<button class="btn bg-warning" type="submit" name="kinInfoSave" id="kinInfoSave" value="kinInfoSave">Save</button>
 			</form>
+		<?php echo "$fieldsetEnd"; ?>
 		</div>
 
 		<br>
@@ -333,6 +345,7 @@
 		<!-- questionnaire form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 				
+		<?php echo "$fieldsetBegin"; ?>
 			<form id="questions" name="questions" action="<?php echo base_url("index.php/questionnaire/" . base64_encode($id)); ?>" method="post">
 			<h4 class="form-title">Questionnaire</h4>
 			<!-- medication -->
@@ -773,6 +786,7 @@
 			
 			<button class="btn bg-warning" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
 			</form>
+		<?php echo "$fieldsetEnd"; ?>
 		</div>
 
 		<br>
