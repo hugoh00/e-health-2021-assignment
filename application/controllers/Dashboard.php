@@ -56,14 +56,14 @@ class Dashboard extends CI_Controller {
 		$this->load->view('questionnaire', $data);
 			
 	}
-	public function questionnaireAuditLoad($staffID, $userID)
+	public function questionnaireAuditLoad($staffID)
 	{
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['id'] = base64_decode($staffID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
 
-		$data['user'] = base64_decode($userID);
+		$data['user'] = $this->input->post("ID");
 
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['user']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['user']);
@@ -87,7 +87,7 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
-		$data['questionnaire'] = $this->Dashboard_model->retrieveQuestionnaires($data['username']);
+		$data['questionnaire'] = $this->Dashboard_model->retrieveQuestionnaires();
 
 		$this->load->view('header', $data);
 		$this->load->view('completedQuestionnaires', $data);

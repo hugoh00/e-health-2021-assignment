@@ -42,7 +42,7 @@ echo <<<_END
 	
 	<h1>$appName Registration Portal</h1>
 
-	<div class="container-fluid">
+	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:10px;">
 
 		
 		

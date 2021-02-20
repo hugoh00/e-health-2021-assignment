@@ -15,13 +15,13 @@
 					$class = "nav-item nav-link";
 					$active = $class . " active";
 					if($staff == true) {
-						$questionnaire = base_url("index.php/completedQuestionnaireLoad/" . $indicator);
+						$questionnaireLink = base_url("index.php/completedQuestionnaireLoad/" . $indicator);
 						$data = base_url("index.php/dataLoad/" . $indicator);
-						echo "<a class='$active' href='$questionnaire'>Questionnaires</a>";
+						echo "<a class='$active' href='$questionnaireLink'>Questionnaires</a>";
 						echo "<a class='$class' href='$data'>Data</a>";
 					} else {
-						$questionnaire = base_url("index.php/questionnaireLoad/" . $indicator);
-						echo "<a class='$active' href='$questionnaire'>Questionnaires</a>";
+						$questionnaireLink = base_url("index.php/questionnaireLoad/" . $indicator);
+						echo "<a class='$active' href='$questionnaireLink'>Questionnaires</a>";
 						
 					}
 				?>
@@ -30,23 +30,49 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container-fluid">
-	<h1>E-Health Dashboard</h2>
-	<p>Welcome to E-Health</p>
-	<?php
-echo $id;
-$test = base64_encode($id);
-echo "----"; 
-echo $test;
-echo "----"; 
-echo base64_decode($test);
-echo "----"; 
-echo $username;
-echo var_dump($staff);
-?>
+	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;"> 
+
+	<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr class="table-info">
+						<th scope="col">#</th>
+						<th scope="col">Forename</th>
+						<th scope="col">Surname</th>
+						<th scope="col">Status</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- loop through the query result passed in to add questions etc -->
+					<?php
+					// GUID firstname surname status
+						
+						foreach ($questionnaire->result() as $row) {
+							if($row->status == "pending") {
+								$buttonValue = "Review";
+							} else {
+								$buttonValue = "View";
+							}
+							
+							$questionnaireLink = base_url("index.php/questionnaireAuditLoad/" . $indicator);
+							echo "<form id='reviewView' action='$questionnaireLink' method='post'>";
+							echo "<tr>";
+							echo "<th scope='row' id='ID'>$row->GUID</th>";
+							echo "<td id='forename'>$row->firstname</td>";
+							echo "<td id='surname'>$row->surname</td>";
+							echo "<td id='status'>$row->status</td>";
+							echo "<td><button class='btn bg-warning' type='submit' name='viewReview' id='viewReview' value='viewReview'>$buttonValue</button><td>";
+							echo "</tr>";
+							echo "</form>";
+						}
+					?>
+				</tbody>
+			</table>
 	</div>
 
 	</body>
 
 
 </html>
+
+

@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<body  style="background-color: #b3ffe0">
 
-	<div class="container-fluid">
+	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:10px;">
 	<?php
 
 	echo "<h1>Welcome to the $appName Portal</h1>";
@@ -46,6 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		echo "<p id='error'>$errorMessage</p>";
 		$url = "." . $url;
 	}
+	
 
 echo <<<_END
 		

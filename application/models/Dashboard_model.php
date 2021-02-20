@@ -820,21 +820,22 @@ class Dashboard_model extends CI_Model {
         return $valid;
     }
 
-    public function retrieveQuestionnaires($username) 
+    public function retrieveQuestionnaires() 
     {
-        $check = $this->checkAccountType($username);
-        if ($check == true) {
-            return $this->questionnaireRetrieval();
-        }
+    
+        return $this->questionnaireRetrieval();
+        
     }
     private function questionnaireRetrieval() 
     {
         $this->db->select('GUID, firstname, surname, status');
-        $this->db->like('status', 'pending');
-        $this->db->or_like('status', 'completed');
+        $pending = "pending";
+        $completed = "completed";
+        $this->db->like('status', $pending, 'none');
+        $this->db->or_like('status', $completed, 'none');
         //from the users table
         $query = $this->db->get('users');
-        return $query->result();
+        return $query;
     }
 
     public function checkStatus($id) {
