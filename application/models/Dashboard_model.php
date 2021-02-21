@@ -55,9 +55,11 @@ class Dashboard_model extends CI_Model {
     }
     public function checkAccountType($username)
     {
+        //setting return variable to false
         $valid = false;
         $check = sizeof($this->checkAccount($username));
         
+        // if the user is part of the ehealth staff will be returned in the query size
         if($check == 1) {
             $valid = true;
         }
@@ -130,6 +132,7 @@ class Dashboard_model extends CI_Model {
     public function getBasicInfo($id, $title, $forename, $surname, $birthday, 
     $gender, $maritalStatus, $height, $weight, $occupation) 
     {
+        //calling private function to use an sql update query
         $check = $this->setBasicInfo($id, $title, $forename, $surname, $birthday, 
         $gender, $maritalStatus, $height, $weight, $occupation);
 
@@ -137,12 +140,14 @@ class Dashboard_model extends CI_Model {
     }
     public function getContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn) 
     {
+        //calling private function to use an sql update query
         $check = $this->setContactInfo($id, $address, $postcode, $mobileNumber, $homeNumber, $SMSyn, $emailyn);
 
         return $check; 
     }
     public function getKinInfo($id, $name, $relationship, $telephone) 
     {
+        //calling private function to use an sql update query
         $check = $this->setKinInfo($id, $name, $relationship, $telephone);
 
         return $check; 
@@ -150,6 +155,7 @@ class Dashboard_model extends CI_Model {
     private function setBasicInfo($id, $title, $forename, $surname, $birthday, 
     $gender, $maritalStatus, $height, $weight, $occupation)
     {
+        //setting all basic info variables in the db table to the variables entered in the questionnaire
         $this->db->set('title', $title);
         $this->db->set('firstname', $forename);
         $this->db->set('surname', $surname);
@@ -160,7 +166,9 @@ class Dashboard_model extends CI_Model {
         $this->db->set('weight', $weight);
         $this->db->set('occupation', $occupation);
 
+        //where the user id is matching their own record
         $this->db->where('GUID', $id);
+        //update users table
         $this->db->update('users');
 
         //check whether update statement has been executed
@@ -179,7 +187,9 @@ class Dashboard_model extends CI_Model {
         $this->db->set('SMS_YN', $SMSyn);
         $this->db->set('email_yn', $emailyn);
 
+        //where the user id is matching their own record
         $this->db->where('GUID', $id);
+        //update users table
         $this->db->update('users');
 
         //check whether update statement has been executed
@@ -195,7 +205,9 @@ class Dashboard_model extends CI_Model {
         $this->db->set('kin_relationship', $relationship);
         $this->db->set('kin_telephone', $telephone);
 
+        //where the user id is matching their own record
         $this->db->where('GUID', $id);
+        //update users table
         $this->db->update('users');
 
         //check whether update statement has been executed
@@ -215,13 +227,15 @@ class Dashboard_model extends CI_Model {
     // 
     public function medication($id) 
     {
-
+        // calling private function for the sql
         return $this->getMedication($id);
 
     }
 
     private function getMedication($id) 
     {
+        // selecting all variables needed for the medication part of the questionnaire to populate if record exists
+        // we dont select * as any updates to the table would cause unneccessary data to be loaded such as the GUID
         $this->db->select('Medication_YN, 
         Medication_1, medication_dosage_1, medication_frequency_1, 
         Medication_2, medication_dosage_2, medication_frequency_2, 
@@ -237,8 +251,9 @@ class Dashboard_model extends CI_Model {
     $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
     $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration) 
     {
-
+        //call a private function to check whether the user has a record already existing in the table
         $check = sizeof($this->checkMedicationExists($id));
+        // if not insert query called if they do update query is called
         if ($check == 0) {
             //call insert query
             $this->insertMedication($id, $medicationYN, $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration,
@@ -268,6 +283,7 @@ class Dashboard_model extends CI_Model {
     $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration)
     {
         // Medication_YN, Medication_1, medication_dosage_1, medication_frequency_1, 
+        // setting all variables again to their db counterparts
         $this->db->set('userid', $id);
         $this->db->set('Medication_YN', $medicationYN);
 
@@ -298,6 +314,8 @@ class Dashboard_model extends CI_Model {
     $secondMedicationName, $secondMedicationDosage, $secondMedicationDuration,
     $thirdMedicationName, $thirdMedicationDosage, $thirdMedicationDuration) 
     {
+        // setting all variables again to their db counterparts
+        // seperated into first, second, and third as to make it less confusing (very similar names)
         $this->db->set('Medication_YN', $medicationYN);
 
         $this->db->set('Medication_1', $firstMedicationName);
@@ -330,10 +348,14 @@ class Dashboard_model extends CI_Model {
     // 
     public function smoke($id)
     {
+        // private function to get all prexisting data for smoking
         return $this->getSmoke($id);
     }
     private function getSmoke($id)
     {
+         // selecting all variables needed for the smoking part of the questionnaire to populate if record exists
+        // we dont select * as any updates to the table would cause unneccessary data to be loaded such as the GUID
+        
         $this->db->select('smoke_status, smoke_type, start_smoking, quit_smoking');
         $this->db->where('userid', $id);
         $query = $this->db->get('smoking');
@@ -342,11 +364,15 @@ class Dashboard_model extends CI_Model {
     }
     public function setSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking)
     {
+        //call a private function to check whether the user has a record already existing in the table
         $check = sizeof($this->checkSmokeExist($id));
+         // if not insert query called if they do update query is called
 
         if ($check == 0) {
+            //insert query
             $this->insertSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking);
         } else {
+            // update query
             $this->updateSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking);
         }
 
@@ -363,11 +389,13 @@ class Dashboard_model extends CI_Model {
     }
     private function updateSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking) 
     {
+         // setting all variables again to their db counterparts
         $this->db->set('smoke_status', $smoke_status);
         $this->db->set('smoke_type', $smoke_type);
         $this->db->set('start_smoking', $start_smoking);
         $this->db->set('quit_smoking', $quit_smoking);
 
+        // getting matching record to user to update
         $this->db->where('userid', $id);
         $this->db->update('smoking');
         
@@ -382,6 +410,7 @@ class Dashboard_model extends CI_Model {
     }
     private function insertSmoke($id, $smoke_status, $smoke_type, $start_smoking, $quit_smoking) 
     {
+         // setting all variables again to their db counterparts
         $this->db->set('userid', $id);
         $this->db->set('smoke_status', $smoke_status);
         $this->db->set('smoke_type', $smoke_type);
@@ -406,6 +435,7 @@ class Dashboard_model extends CI_Model {
 
     public function alcoholQuestions() 
     {
+        // calling private function to access squl
         return $this->getAlcoholQuestions();
     }
     private function getAlcoholQuestions()
@@ -417,11 +447,16 @@ class Dashboard_model extends CI_Model {
 //         alcohol_options.response4
 //         FROM alcohol_questions
 //         JOIN alcohol_options ON alcohol_options.GUID = alcohol_questions.optionsid
-           $this->db->select("alcohol_questions.GUID, alcohol_questions.Question, 
+           
+           // selecting all variables needed for the alcohol_questions part of the questionnaire to populate if record exists
+        // we dont select * as any updates to the table would cause unneccessary data to be loaded such as the GUID
+       $this->db->select("alcohol_questions.GUID, alcohol_questions.Question, 
            alcohol_options.response0, alcohol_options.response1, 
            alcohol_options.response2, alcohol_options.response3, 
            alcohol_options.response4"); 
            $this->db->from('alcohol_questions');
+           // we join the questions and options tables on the foreign key options id in alcohol_questions
+           // into the GUID of alcohol_options
            $this->db->join('alcohol_options', 'alcohol_options.GUID = alcohol_questions.optionsid');
 
            $query = $this->db->get();
@@ -430,13 +465,16 @@ class Dashboard_model extends CI_Model {
 
     public function alcoholResponses($id)
     {
+
         return $this->getAlcoholResponses($id);
     }
     private function getAlcoholResponses($id) 
     {
+        //calling all data as this will not change 
         $this->db->select('*');
         $this->db->where('userid', $id);
         $this->db->from('alcohol_responses');
+        //ordering in ascending order so when we produce a table they will link correctly to the questions without extra checks
         $this->db->order_by('questionid ASC');
 
         $query = $this->db->get();
@@ -447,6 +485,8 @@ class Dashboard_model extends CI_Model {
     $sixScore, $sevenScore, $eightScore, $nineScore, $tenScore)
     {
         // check whether a record of each individual record exists before updating or inserting
+        // this is a precaution in case someone managed to submit with 9/10 answered this shouldnt happen
+        // individual checks blocks out the chance of an sql mess up
         $this->checkAlcoholResponsesExists($id, 1, $oneScore);
         $this->checkAlcoholResponsesExists($id, 2, $twoScore);
         $this->checkAlcoholResponsesExists($id, 3, $threeScore);
@@ -493,6 +533,7 @@ class Dashboard_model extends CI_Model {
     private function updateAlcoholResponses($id, $questionid, $response) 
     {
         // $rest = substr("abcdef", -1);    // returns "f"
+         // $score = substr("responseX", -1);    // returns "X"
         
         $score = substr($response, -1);
         $this->db->set('response', $response);
@@ -503,7 +544,7 @@ class Dashboard_model extends CI_Model {
         $this->db->update('alcohol_responses');
         
 
-        //check whether insert statement has been executed
+        //check whether update statement has been executed
         if ($this->db->affected_rows() != 0) {
             return true;
         } else {
@@ -513,10 +554,11 @@ class Dashboard_model extends CI_Model {
     }
     private function insertAlcoholResponses($id, $questionid, $response) 
     {
-         // $rest = substr("abcdef", -1);    // returns "f"
          $this->db->set('userid', $id);
          $this->db->set('questionid', $questionid);
 
+         // $rest = substr("abcdef", -1);    // returns "f"
+         // $score = substr("responseX", -1);    // returns "X"
          $score = substr($response, -1);
 
          $this->db->set('response', $response);
@@ -544,6 +586,7 @@ class Dashboard_model extends CI_Model {
     }
     private function getMedicalHistory($id) 
     {
+        //getting data to populate the medical history part of the questionnaire
         $this->db->select('has_cancer, has_heart_disease, has_stroke, has_other');
         $this->db->where('userid', $id);
         $query = $this->db->get('medical_history');
@@ -563,6 +606,10 @@ class Dashboard_model extends CI_Model {
     public function setMedicalHistory($id, $has_cancer, $has_heart_disease, 
     $has_stroke, $has_other)
     {
+        // if they have a record existing 
+        // update query
+        // else
+        // insert query
         $check = sizeof($this->checkMedicalHistoryExist($id));
 
         if ($check == 0) {
@@ -573,7 +620,7 @@ class Dashboard_model extends CI_Model {
     }
     private function updateMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other)
     {
-
+        // simple update query matching variables to db counterparts
         $this->db->set('has_cancer', $has_cancer);
         $this->db->set('has_heart_disease', $has_heart_disease);
         $this->db->set('has_stroke', $has_stroke);
@@ -593,7 +640,7 @@ class Dashboard_model extends CI_Model {
     }
     private function insertMedicalHistory($id, $has_cancer, $has_heart_disease, $has_stroke, $has_other)
     {
-        
+        //  insert query matching variables to db counterparts
         $this->db->set('userid', $id);
         $this->db->set('has_cancer', $has_cancer);
         $this->db->set('has_heart_disease', $has_heart_disease);
@@ -630,6 +677,7 @@ class Dashboard_model extends CI_Model {
     }
     private function checkAllergyExist($id)
     {
+        
         $this->db->select('userid');
         //where userid = $id
         $this->db->where('userid' , $id);
@@ -642,6 +690,10 @@ class Dashboard_model extends CI_Model {
     public function setAllergy($id, $allergy_details) 
     {
 
+        // if they have a record existing 
+        // update query
+        // else
+        // insert query
         $check = sizeof($this->checkAllergyExist($id));
 
         if ($check == 0) {
@@ -693,6 +745,7 @@ class Dashboard_model extends CI_Model {
     }
     private function getLifestyle($id)
     {
+        //populating lifestyle part of the questionnaire
         $this->db->select('exercise, exercise_minutes, exercise_days, diet');
         $this->db->where('userid', $id);
         $query = $this->db->get('lifestyle');
@@ -712,6 +765,10 @@ class Dashboard_model extends CI_Model {
     public function setLifestyle($id, $exercise, $exercise_minutes, 
     $exercise_days, $diet)
     {
+        // if they have a record existing 
+        // update query
+        // else
+        // insert query
         $check = sizeof($this->checkLifestyleExist($id));
 
         if ($check == 0) {
@@ -773,6 +830,10 @@ class Dashboard_model extends CI_Model {
     private function updatingStatus($id, $status) 
     {
         //default values which will be checked
+
+        //currently error messages are in the code but unused as they wouldnt be able to get
+        //this far without completing all the forms
+        //the checks that they have records is just a precaution in reality they shouldnt even be able to submit
         $valid = true;
         $errorMessage = "";
 

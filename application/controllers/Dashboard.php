@@ -13,6 +13,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('Dashboard_model');
 	}
 	public function index() {
+		//loading the homepage of dashboard with data it needs to know
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['username'] = $this->input->post("dshUser");
 		$data['id'] = $this->Dashboard_model->getID($data['username']);
@@ -23,6 +24,8 @@ class Dashboard extends CI_Controller {
 	}
 	public function dashboardLoad($userID)
 	{
+		//if the user wants to go back into dashboard from another page we cannot use the 
+		//index as it uses a post from a certain pathway
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
@@ -33,6 +36,10 @@ class Dashboard extends CI_Controller {
 	}
 	public function questionnaireLoad($userID)
 	{
+		// load in the basics of the questionnaire
+		// page title, user id, username, staff boolean, questionnairestatus boolean, completed boolean
+		// questionnairestatus is whether they are pending approval or confirmed
+		// completed is just whether they are confirmed
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
@@ -40,11 +47,15 @@ class Dashboard extends CI_Controller {
 		$data['questionnaireStatus'] = $this->Dashboard_model->checkStatus($data['id']);
 		$data['completed'] = $this->Dashboard_model->completed($data['id']);
 
+		// data for populating the questionnaire with values that already exist in the db for the user
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);
 		$data['existingKinInfo'] = $this->Dashboard_model->existingKinInfo($data['id']);
+
+		//alcohol questions loaded into the webpage
 		$data['alcoholQuestions'] = $this->Dashboard_model->alcoholQuestions();
 
+		// more data to populate the questionnaire to populate inputs
 		$data['medication'] = $this->Dashboard_model->medication($data['id']);
 		$data['smoke'] = $this->Dashboard_model->smoke($data['id']);
 		$data['alcoholResponses'] = $this->Dashboard_model->alcoholResponses($data['id']);
@@ -59,11 +70,15 @@ class Dashboard extends CI_Controller {
 	}
 	public function questionnaireAuditLoad($staffID)
 	{
+		// Almost identical to questionnaireLoad around line 50
+
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['id'] = base64_decode($staffID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
 
+		//we now use the post from the table of questionnaires as our point for getting all 
+		// questionnaire data relating to that particular user
 		$data['user'] = $this->input->post("questID");
 
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['user']);
@@ -84,10 +99,13 @@ class Dashboard extends CI_Controller {
 	}
 	public function completedQuestionnaireLoad($userID)
 	{
+		// loading basics of the webpage
 		$data['appName'] = $this->Dashboard_model->getName();
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		//retrieving all questionnaires that are completed or pending approval of the admin
 		$data['questionnaire'] = $this->Dashboard_model->retrieveQuestionnaires();
 
 		$this->load->view('header', $data);
@@ -150,6 +168,10 @@ class Dashboard extends CI_Controller {
 	}
 	public function questionnaire($userID) 
 	{
+		//saving the main body of the questionnaire
+		//could do this in smaller private functions but not got round to it
+		// would tidy up this huge block of code into smaller easy to read blocks
+
 		//medication
 		// $medicationYN
 		// $firstMedicationName, $firstMedicationDosage, $firstMedicationDuration
@@ -158,6 +180,7 @@ class Dashboard extends CI_Controller {
 		$medicationYN = $this->input->post("medicationyn");
 		if ($medicationYN == "N") {
 			// save medication info now
+			// we save it empty as even when hidden the inputs could have some empty information
 			$this->Dashboard_model->saveMedication(base64_decode($userID), $medicationYN, 
 			"", "", "",
 			"", "", "",
