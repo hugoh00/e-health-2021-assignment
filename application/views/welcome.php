@@ -14,12 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('public\javascript\bootstrap.js') ?>"></script>
 	<!-- Google Charts libraries -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	
 	<script type='text/javascript' src="<?php echo base_url('public/javascript/welcomeRegistration.js') ?>"></script>
 	<title><?php echo $appName;?></title>
 </head>
 
+<!-- Navigation Bar to access register or login pages -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class = "collapse navbar-collapse" id="collapsibleNavbar">
 			<div class="navbar-nav">
 				<a class="nav-item nav-link active" href="<?php echo base_url(''); ?>">Login</a>
-				<a class="nav-item nav-link" href="<?php echo base_url("./index.php/registerLoad"); ?>">Register</a>
+				<a class="nav-item nav-link" href="<?php echo base_url("index.php/registerLoad"); ?>">Register</a>
 			</div>
 		</div>
 </nav>
@@ -41,10 +41,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	echo "<h1>Welcome to the $appName Portal</h1>";
 
-	$url = "./index.php/signIn";
+	$url = base_url("index.php/signIn");
 	if(isset($errorMessage)) {
 		echo "<p style='color:red' id='error'>$errorMessage</p>";
-		$url = "." . $url;
 	}
 	
 
@@ -54,11 +53,11 @@ echo <<<_END
 		<form id="welcome" name="welcome" action="$url" method="post">
 		<div class="form-group">
 		<label for="username">Username:</label>
-		<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username">
+		<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" autocomplete="off">
 		</div>
 		<div class="form-group">
 		<label for="password">Password:</label>
-		<input type="text" class="form-control" name="password" id="password" placeholder="Enter Password">
+		<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
 		</div>
 		<button class="btn btn-outline-success btn-lg btn-block" type="submit" name="login" value="login">Log In </button>
 		</form>

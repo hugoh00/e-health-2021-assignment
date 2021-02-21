@@ -69,7 +69,7 @@ class Welcome extends CI_Controller {
 		} else {
 			//send back into welcome with a error indicator 
 			$data['appName'] = $this->Welcome_model->getName();
-			$data['errorMessage'] = "Invalid Login. Please try again";
+			$data['errorMessage'] = "Invalid Registration. Please try again";
 
 			$this->load->view('register', $data);
 		}

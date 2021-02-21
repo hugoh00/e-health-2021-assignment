@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <?php
+$url = base_url('index.php/registerAttempt');
 
 echo <<<_END
 
@@ -47,20 +48,20 @@ echo <<<_END
 		
 		
 		
-
+		
 		<!-- register form  -->
-		<form id="register" action="registerAttempt" method="post">
+		<form id="register" action="$url" method="post">
 		<div class="form-group">
 		<label for="regEmail">Email:</label>
-		<input type="email" class="form-control" name="regEmail" id="regEmail" placeholder="Enter Email" required>
+		<input type="email" class="form-control" name="regEmail" id="regEmail" placeholder="Enter Email" required autocomplete="off">
 		</div>
 		<div class="form-group">
 		<label for="regUsername">Username:</label>
-		<input type="text" class="form-control" name="regUsername" id="regUsername" placeholder="Enter Username" required>
+		<input type="text" class="form-control" name="regUsername" id="regUsername" placeholder="Enter Username" required autocomplete="off">
 		</div>
 		<div class="form-group">
 		<label for="regPassword">Password:</label>
-		<input type="text" class="form-control" name="regPassword" id="regPassword" placeholder="Enter Password" required>
+		<input type="password" class="form-control" name="regPassword" id="regPassword" placeholder="Enter Password" required autocomplete="off">
 		</div>
 		<p><button class="btn btn-outline-success btn-lg btn-block" type="submit" name="register" value="register" onclick="formValidation();">Register</button>
 		</form>
