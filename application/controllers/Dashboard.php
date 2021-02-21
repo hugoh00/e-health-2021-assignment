@@ -63,7 +63,7 @@ class Dashboard extends CI_Controller {
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
 
-		$data['user'] = $this->input->post("ID");
+		$data['user'] = $this->input->post("questID");
 
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['user']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['user']);
@@ -284,16 +284,16 @@ class Dashboard extends CI_Controller {
 		$pending = "pending";
 
 		if ($privilege == true) {
-			$check = $this->Dashboard_model->submitQuestionnaire(base64_decode($userID), $confirmed);
+			$id = $this->input->post("questID");
+			$check = $this->Dashboard_model->submitQuestionnaire($id, $confirmed);
 		} else {
 			$check = $this->Dashboard_model->submitQuestionnaire(base64_decode($userID), $pending);
 		}
 
 		if($check == true) {
-			$this->questionnaireLoad($userID);
+			$this->dashboardLoad($userID);
 		} else {
 			echo $check;
-			$this->questionnaireLoad($userID);
 		}
 
 		

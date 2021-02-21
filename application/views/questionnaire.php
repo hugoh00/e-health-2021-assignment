@@ -790,19 +790,10 @@
 		</div>
 
 		<br>
-		<?php
-		//set all kin contact info with a loop round data passed in from a query
-		foreach ($existingKinInfo->result() as $row) {
-			// set variables to populate fields
-			// $kin_name, $kin_relationship, $kin_telephone
-			$kinName = $row->kin_name;
-			$kinRelationship = $row->kin_relationship;
-			$kinNumber = $row->kin_telephone;
-		}
-	?>
 
 		<!-- submittion form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
+		<form id="submittionform" name="submittionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
 			<?php 
 			if ($staff == true) {
 				$buttonInfo = "Sign Questionnaire Off";
@@ -811,9 +802,12 @@
 				$buttonInfo = "Complete Questionnaire";
 				$buttonClass = "btn bg-warning";
 			}
+			if (isset($user)) {
+				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
+			}
 			
 			?>
-			<form id="submittionform" name="submittionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
+			
 			<button class="<?php echo $buttonClass; ?>" type="submit" name="submittion" id="submittion" value="submittion"><?php echo $buttonInfo; ?></button>
 			</form>
 		</div>

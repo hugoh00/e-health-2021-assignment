@@ -830,9 +830,9 @@ class Dashboard_model extends CI_Model {
     {
         $this->db->select('GUID, firstname, surname, status');
         $pending = "pending";
-        $completed = "completed";
+        $confirmed = "confirmed";
         $this->db->like('status', $pending, 'none');
-        $this->db->or_like('status', $completed, 'none');
+        $this->db->or_like('status', $confirmed, 'none');
         //from the users table
         $query = $this->db->get('users');
         return $query;
@@ -846,7 +846,7 @@ class Dashboard_model extends CI_Model {
         $this->db->select('GUID');
         $this->db->where('GUID', $id);
         $this->db->like('status', 'pending');
-        $this->db->or_like('status', 'completed');
+        $this->db->or_like('status', 'confirmed');
         //from the users table
         $query = $this->db->get('users');
         $check = sizeof($query->result());

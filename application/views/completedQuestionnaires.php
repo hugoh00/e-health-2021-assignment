@@ -56,6 +56,7 @@
 							
 							$questionnaireLink = base_url("index.php/questionnaireAuditLoad/" . $indicator);
 							echo "<form id='reviewView' action='$questionnaireLink' method='post'>";
+							echo "<input type='hidden' name='questID' id='questID' value='$row->GUID'>";
 							echo "<tr>";
 							echo "<th scope='row' id='ID'>$row->GUID</th>";
 							echo "<td id='forename'>$row->firstname</td>";
