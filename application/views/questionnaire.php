@@ -1,4 +1,4 @@
-
+</head>
 <body style="background-color: #b3ffe0">
 <!-- <fieldset disabled> </fieldset> -->
 <?php
@@ -801,23 +801,25 @@
 		<!-- submittion form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 		<?php echo "$endFormStart"; ?>
-		<form id="submittionform" name="submittionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
+		<form id="submissionform" name="submissionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
 			<?php 
 			if ($staff == true) {
 				$buttonInfo = "Sign Questionnaire Off";
-				$buttonClass = "btn bg-success";
+				$buttonClass = "btn bg-success btn-lg btn-block";
+				$style = "";
 			} else {
 				$buttonInfo = "Complete Questionnaire";
-				$buttonClass = "btn bg-warning";
-				//thing
+				$buttonClass = "btn bg-warning btn-lg btn-block";
+				$style = "background-color: #007bff;";
 			}
 			if (isset($user)) {
 				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
 			}
 			
 			?>
-			
-			<button class="<?php echo $buttonClass; ?>" type="submit" name="submittion" id="submittion" value="submittion"><?php echo $buttonInfo; ?></button>
+			<div class="text-center">
+			<button class="<?php echo $buttonClass; ?>" style="<?php echo $style; ?>"type="submit" name="submission" id="submission" value="submission"><?php echo $buttonInfo; ?></button>
+			</div>
 			</form>
 			<?php echo "$endFormEnd"; ?>
 		</div>

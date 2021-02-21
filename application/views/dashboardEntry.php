@@ -18,7 +18,9 @@ echo <<<_END
 
 	<div id="container">
 
-		<h1 style="color:white; text-align:center;">$username's Dashboard</h1>
+	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:10px;">
+
+		<h1 style="text-align:center;">$username's Dashboard</h1>
 		
 		
 
@@ -26,11 +28,13 @@ echo <<<_END
 		<form id="dashboardentry" action="dashboard" method="post">
 		<input type="hidden" name="dshUser" id="dshUser" value=$username>
 		<div class="text-center">
-		<button class="btn btn-success" type="submit" name="entry" value="entry">Enter</button>
+		<button class="btn btn-outline-success btn-lg btn-block" type="submit" name="entry" value="entry">Enter</button>
 		</div>
 		</form>
 _END;
 ?>
+	</div>
+
 	</div>
 
 	</body>

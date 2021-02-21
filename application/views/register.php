@@ -52,24 +52,24 @@ echo <<<_END
 		<form id="register" action="registerAttempt" method="post">
 		<div class="form-group">
 		<label for="regEmail">Email:</label>
-		<input type="email" name="regEmail" id="regEmail" placeholder="Enter Email" required>
+		<input type="email" class="form-control" name="regEmail" id="regEmail" placeholder="Enter Email" required>
 		</div>
 		<div class="form-group">
 		<label for="regUsername">Username:</label>
-		<input type="text" name="regUsername" id="regUsername" placeholder="Enter Username" required>
+		<input type="text" class="form-control" name="regUsername" id="regUsername" placeholder="Enter Username" required>
 		</div>
 		<div class="form-group">
 		<label for="regPassword">Password:</label>
-		<input type="text" name="regPassword" id="regPassword" placeholder="Enter Password" required>
+		<input type="text" class="form-control" name="regPassword" id="regPassword" placeholder="Enter Password" required>
 		</div>
-		<p><button class="btn bg-success" type="submit" name="register" value="register" onclick="formValidation();">Register</button>
+		<p><button class="btn btn-outline-success btn-lg btn-block" type="submit" name="register" value="register" onclick="formValidation();">Register</button>
 		</form>
 _END;
 ?>
 
 		<?php
 		if(isset($errorMessage)) {
-			echo "<p id='error'>$errorMessage</p>";
+			echo "<p style='color:red' id='error'>$errorMessage</p>";
 		}
 		?>
 	</div>

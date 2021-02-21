@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>	
 	<title><?php echo $username . $appName;?></title>
-</head>
+
 
 
 

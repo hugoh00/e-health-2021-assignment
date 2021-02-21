@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	$url = "./index.php/signIn";
 	if(isset($errorMessage)) {
-		echo "<p id='error'>$errorMessage</p>";
+		echo "<p style='color:red' id='error'>$errorMessage</p>";
 		$url = "." . $url;
 	}
 	
@@ -60,7 +60,7 @@ echo <<<_END
 		<label for="password">Password:</label>
 		<input type="text" class="form-control" name="password" id="password" placeholder="Enter Password">
 		</div>
-		<button class="btn bg-success" type="submit" name="login" value="login">Log In </button>
+		<button class="btn btn-outline-success btn-lg btn-block" type="submit" name="login" value="login">Log In </button>
 		</form>
 _END;
 

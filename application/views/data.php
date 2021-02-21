@@ -1,4 +1,4 @@
-
+</head>
 <body style="background-color: #b3ffe0">
 <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-static-top">
 	<a class="navbar-brand" href="#">E-Health Navigation</a>
