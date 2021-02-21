@@ -857,6 +857,24 @@ class Dashboard_model extends CI_Model {
         }
 
     }
+    public function completed($id) {
+        return $this->checkCompleted($id);
+    }
+    private function checkCompleted($id) 
+    {
+        $this->db->select('GUID');
+        $this->db->where('GUID', $id);
+        $this->db->like('status', 'confirmed');
+        //from the users table
+        $query = $this->db->get('users');
+        $check = sizeof($query->result());
+        if ($check == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
     private function updateStatus($id, $status)
     {
         $this->db->set('status', $status);

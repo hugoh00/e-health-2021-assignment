@@ -38,6 +38,7 @@ class Dashboard extends CI_Controller {
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
 		$data['questionnaireStatus'] = $this->Dashboard_model->checkStatus($data['id']);
+		$data['completed'] = $this->Dashboard_model->completed($data['id']);
 
 		$data['existingBasicInfo'] = $this->Dashboard_model->existingBasicInfo($data['id']);
 		$data['existingContactInfo'] = $this->Dashboard_model->existingContactInfo($data['id']);

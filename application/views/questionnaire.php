@@ -791,8 +791,16 @@
 
 		<br>
 
+		<?php
+			if($completed == true) {
+				$endFormStart = "<fieldset disabled>";
+				$endFormEnd = "</fieldset>";
+			}
+		?>
+
 		<!-- submittion form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
+		<?php echo "$endFormStart"; ?>
 		<form id="submittionform" name="submittionform" action="<?php echo base_url("index.php/submitQuestionnaire/" . base64_encode($id)); ?>" method="post">
 			<?php 
 			if ($staff == true) {
@@ -801,6 +809,7 @@
 			} else {
 				$buttonInfo = "Complete Questionnaire";
 				$buttonClass = "btn bg-warning";
+				//thing
 			}
 			if (isset($user)) {
 				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
@@ -810,6 +819,7 @@
 			
 			<button class="<?php echo $buttonClass; ?>" type="submit" name="submittion" id="submittion" value="submittion"><?php echo $buttonInfo; ?></button>
 			</form>
+			<?php echo "$endFormEnd"; ?>
 		</div>
 
 		<br>
