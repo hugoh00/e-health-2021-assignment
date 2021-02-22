@@ -176,7 +176,7 @@ _END;
 				</div>
 			</div>
 			<div id="mid-col" class="col-md-4">
-				<div class="card text-black mb-3" style="max-width: 95%; background-color: #ffb6c1; border-color: black;"> 
+				<div class="card text-black mb-3" style="max-width: 95%; background-color: #f5f5dc; border-color: black;"> 
 					<div class="card-header"><h4>Pending Questionnaires</h4></div>
 					<div class="card-body">
 						<h3 id="activeN" class="card-title"><?php echo $pendingQuestionnaires ?></h3>
@@ -184,7 +184,7 @@ _END;
 				</div>
 			</div>
 			<div id="right-col" class="col-md-4">
-				<div class="card text-black mb-3" style="max-width: 95%; background-color: #ffb6c1; border-color: black;"> 
+				<div class="card text-black mb-3" style="max-width: 95%; background-color: #008080; border-color: black;"> 
 					<div class="card-header"><h4>Accepted Questionnaires</h4></div>
 					<div class="card-body">
 						<h3 id="activeN" class="card-title"><?php echo $confirmedQuestionnaires ?></h3>
