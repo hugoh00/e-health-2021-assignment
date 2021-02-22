@@ -951,4 +951,64 @@ class Dashboard_model extends CI_Model {
         }
 
     }
+
+    // 
+    // data
+    // 
+    public function totalUsers()
+    {
+        return $this->getTotalUsers();
+    }
+    private function getTotalUsers()
+    {
+        $this->db->select('GUID');
+        return $this->db->count_all_results('users');
+    }
+
+    public function totalPending()
+    {
+        return $this->getTotalPending();
+    }
+    private function getTotalPending()
+    {
+        $pending = "pending";
+        $this->db->select('GUID');
+        $this->db->where('status', $pending);
+        return $this->db->count_all_results('users');
+    }
+    public function totalCompleted()
+    {
+        return $this->getTotalCompleted();
+    }
+    private function getTotalCompleted()
+    {
+        $confirmed = "confirmed";
+        $this->db->select('GUID');
+        $this->db->where('status', $confirmed);
+        return $this->db->count_all_results('users');
+    }
+
+    //piechart data
+
+    //sms and email yn
+    public function smsEmailyn() 
+    {
+        $emailYes = $this->countEmailyn("Y");
+        $emailNo = $this->countEmailyn("N");
+        $smsYes  = $this->countSmsyn("Y");
+        $smsNo = $this->countSmsyn("N");
+      
+    }
+    private function countEmailyn($yn)
+    {
+        $this->db->select('GUID');
+        $this->db->where('email_yn', $yn);
+        return $this->db->count_all_results('users');
+    }
+    private function countSmsyn($yn)
+    {
+        $this->db->select('GUID');
+        $this->db->where('SMS_YN', $yn);
+        return $this->db->count_all_results('users');
+    }
 }

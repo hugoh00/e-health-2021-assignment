@@ -117,6 +117,12 @@ class Dashboard extends CI_Controller {
 		$data['id'] = base64_decode($userID);
 		$data['username'] = $this->Dashboard_model->getUsername($data['id']);
 		$data['staff'] = $this->Dashboard_model->checkAccountType($data['username']);
+
+		$data['totalUsers'] = $this->Dashboard_model->totalUsers();
+		$data['pendingQuestionnaires'] = $this->Dashboard_model->totalPending();
+		$data['confirmedQuestionnaires'] = $this->Dashboard_model->totalCompleted();
+		
+		$data['smsemailyn'] = $this->Dashboard_model->smsEmailyn();
 		
         $this->load->view('header', $data);
 		$this->load->view('data', $data);
