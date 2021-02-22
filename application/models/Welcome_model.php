@@ -18,10 +18,16 @@ class Welcome_model extends CI_Model {
         $this->db->select('username, password');
         //where username = $user AND password = $password
         $this->db->where('username' , $user);
-        $this->db->where('password' , $psword);
         //from the users table
         $query = $this->db->get('users');
-        return $query->result();
+
+        foreach($query->result() as $row) {
+            if ($row->username === $user && $row->password === $psword) 
+            {
+                return true;
+            }
+        }
+        return false;
     }
     // seperate wheres as you could have a unique email but matching username
     private function getMatchingEmail($email)
@@ -33,7 +39,13 @@ class Welcome_model extends CI_Model {
         //from the users table
         $query = $this->db->get('users');
         //returns query result
-        return $query->result();
+        foreach($query->result() as $row) {
+            if ($row->email == $email) 
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private function getMatchingUsername($username) 
     {
@@ -44,7 +56,13 @@ class Welcome_model extends CI_Model {
         //from the users table
         $query = $this->db->get('users');
         //returns query result
-        return $query->result();
+        foreach($query->result() as $row) {
+            if ($row->username === $username) 
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private function insertNewUser($email, $username, $password) 
     {
@@ -63,24 +81,19 @@ class Welcome_model extends CI_Model {
     public function checkLoginDetails($user, $psword) 
     {
         //boolean to return
-        $valid = false;
         //calling function to access the database
-        $credentials = sizeof($this->getMatchingUsernamePassword($user, $psword));
-        if ($credentials == 1) {
-
-            $valid = true;
-        }
-        return $valid;
+        return $this->getMatchingUsernamePassword($user, $psword);
+        
     }
     public function checkRegistrationDetails($email, $username, $password) {
         //boolean to return
         $valid = false;
         //calling function to access the database
-        $emailCheck = sizeof($this->getMatchingEmail($email));
-        $usernameCheck = sizeof($this->getMatchingUsername($username));
+        $emailCheck = $this->getMatchingEmail($email);
+        $usernameCheck = $this->getMatchingUsername($username);
 
         //if no records exist we can now attempt to insert into the db
-        if($emailCheck == 0 && $usernameCheck == 0) {
+        if($emailCheck == true && $usernameCheck == true) {
             if ($this->insertNewUser($email, $username, $password)) {
                 $valid = true;
             }

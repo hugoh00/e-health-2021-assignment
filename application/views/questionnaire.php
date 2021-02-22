@@ -107,21 +107,21 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="forename">Forename:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="forename" id="forename" value="<?php echo $forename ?>" placeholder="Enter Forename">
+					<input type="text" class="form-control" name="forename" id="forename" value="<?php echo $forename ?>" placeholder="Enter Forename" required>
 				</div>
 			</div>
 			<!-- surname -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="surname">Surname:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="surname" id="surname" value="<?php echo $surname ?>" placeholder="Enter Surname">
+					<input type="text" class="form-control" name="surname" id="surname" value="<?php echo $surname ?>" placeholder="Enter Surname" required>
 				</div>
 			</div>
 			<!-- date of birth -->
 			<div class="form-group row ">
 				<label class="col-sm-3 col-form-label" for="birthday">Birthday:</label>
 				<div class="col-sm-9">
-					<input type="date" id="birthday" name="birthday" value="<?php echo $birthday ?>">
+					<input type="date" id="birthday" name="birthday" value="<?php echo $birthday ?>" required>
 				</div>
 			</div>
 			<!-- Gender -->
@@ -163,14 +163,14 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="height">Height in cm:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="height" id="height" value="<?php echo $height ?>" placeholder="Enter Height (cm)">
+					<input type="text" class="form-control" name="height" id="height" value="<?php echo $height ?>" placeholder="Enter Height (cm)" required>
 				</div>
 			</div>
 			<!-- weight -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="weight">Weight in lb:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="weight" id="weight" value="<?php echo $weight ?>" placeholder="Enter Weight (lb)">
+					<input type="text" class="form-control" name="weight" id="weight" value="<?php echo $weight ?>" placeholder="Enter Weight (lb)" required>
 				</div>
 			</div>
 			<!-- occupation -->
@@ -224,7 +224,7 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="address">Address:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="address" id="address" value="<?php echo $address ?>" placeholder="Enter Address">
+					<input type="text" class="form-control" name="address" id="address" value="<?php echo $address ?>" placeholder="Enter Address"  required>
 				</div>
 			</div>
 			<!-- postcode -->
@@ -232,7 +232,7 @@
 				<label class="col-sm-3 col-form-label" for="postcode">Postcode:</label>
 				<div class="col-sm-9">
 					<input type="text" pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}"
-					 class="form-control" name="postcode" id="postcode" value="<?php echo $postcode ?>" placeholder="Enter Postcode">
+					 class="form-control" name="postcode" id="postcode" value="<?php echo $postcode ?>" placeholder="Enter Postcode"  required>
 				</div>
 			</div>
 			<h6>Phone Numbers:</h6>
@@ -241,7 +241,7 @@
 				<label class="col-sm-3 col-form-label" for="mobileNumber">Mobile:</label>
 				<div class="col-sm-9">
 					<input type="text" 
-					 class="form-control" name="mobileNumber" id="mobileNumber" value="<?php echo $mobileNumber ?>" placeholder="Enter Mobile Number">
+					 class="form-control" name="mobileNumber" id="mobileNumber" value="<?php echo $mobileNumber ?>" placeholder="Enter Mobile Number"  required>
 				</div>
 			</div>
 			<!-- home number -->
@@ -249,7 +249,7 @@
 				<label class="col-sm-3 col-form-label" for="homeNumber">Home:</label>
 				<div class="col-sm-9">
 					<input type="text" 
-					class="form-control" name="homeNumber" id="homeNumber" value="<?php echo $homeNumber ?>" placeholder="Enter Home Telephone Number">
+					class="form-control" name="homeNumber" id="homeNumber" value="<?php echo $homeNumber ?>" placeholder="Enter Home Telephone Number" required>
 				</div>
 			</div>
 
@@ -259,13 +259,13 @@
 				<div class="col-sm-9">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="SMSyn" name="SMSyn" 
+						<input type="radio" id="SMSyn" name="SMSyn" 
 						<?php echo $smsYesChecked ?> class="form-check-input" value="Y">Yes
 						</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="SMSyn" name="SMSyn" 
+						<input type="radio" id="SMSyn" name="SMSyn" 
 						<?php echo $smsNoChecked ?> class="form-check-input" value="N">No
 						</label>
 					</div>
@@ -277,13 +277,13 @@
 				<div class="col-sm-9">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="emailyn" name="emailyn" 
+						<input type="radio" id="emailyn" name="emailyn" 
 						<?php echo $emailYesChecked ?> class="form-check-input" value="Y">Yes
 						</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="emailyn" name="emailyn" 
+						<input type="radio" id="emailyn" name="emailyn" 
 						<?php echo $emailNoChecked ?> class="form-check-input" value="N">No
 						</label>
 					</div>
@@ -317,21 +317,21 @@
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinName">Full Name:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinName" id="kinName" value="<?php echo $kinName ?>" placeholder="Enter Full Name">
+					<input type="text" class="form-control" name="kinName" id="kinName" value="<?php echo $kinName ?>" placeholder="Enter Full Name" required>
 				</div>
 			</div>
 			<!-- kin relationship -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinRelationship">Relationship:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinRelationship" id="kinRelationship" value="<?php echo $kinRelationship ?>" placeholder="Enter Relationship to Kin">
+					<input type="text" class="form-control" name="kinRelationship" id="kinRelationship" value="<?php echo $kinRelationship ?>" placeholder="Enter Relationship to Kin" required>
 				</div>
 			</div> 
 			<!-- kin name -->
 			<div class="form-group row">
 				<label class="col-sm-3 col-form-label" for="kinNumber">Phone Number:</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" name="kinNumber" id="kinNumber" value="<?php echo $kinNumber ?>" placeholder="Enter Kin Telephone">
+					<input type="text" class="form-control" name="kinNumber" id="kinNumber" value="<?php echo $kinNumber ?>" placeholder="Enter Kin Telephone" required>
 				</div>
 			</div>
 			<button class="btn bg-warning" type="submit" name="kinInfoSave" id="kinInfoSave" value="kinInfoSave">Save</button>
@@ -569,22 +569,22 @@
 							echo "<tr>";
 							echo "<th scope='row'>$row->GUID</th>";
 							echo "<td>$row->Question</td>";
-							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response0' $response0Checked>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response0' $response0Checked required>";
 							echo "$row->response0</td>";
 							if($row->GUID == 9 || $row->GUID == 10) {
 								echo "<td>$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked required>";
 								echo "$row->response2</td>";
 								echo "<td>$row->response3</td>";
 							} else {
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response1' $response1Checked>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response1' $response1Checked required>";
 								echo "$row->response1</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response2' $response2Checked required>";
 								echo "$row->response2</td>";
-								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response3' $response3Checked>";
+								echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response3' $response3Checked required>";
 								echo "$row->response3</td>";
 							}
-							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response4' $response4Checked>";
+							echo "<td><input class='form-check-input' type='radio' name='question$row->GUID' id='question$row->GUID' value='response4' $response4Checked required>";
 							echo "$row->response4</td>";
 							echo "</tr>";
 						}
