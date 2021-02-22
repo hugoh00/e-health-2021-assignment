@@ -86,7 +86,6 @@
 	?>
 	<div class="container-fluid" style="background-color:#b3ffe0">
 		<h1>Questionnaire</h2>
-
 		<!-- Basic Information Form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 		<?php echo "$fieldsetBegin"; ?>
@@ -142,19 +141,19 @@
 				<div class="col-sm-9">
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="maritalStatus" name="maritalStatus" 
+						<input type="radio" id="maritalStatus" name="maritalStatus" 
 						<?php echo $marriedChecked ?> class="form-check-input" value="Married">Married
 						</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="maritalStatus" name="maritalStatus" 
+						<input type="radio" id="maritalStatus" name="maritalStatus" 
 						<?php echo $singleChecked ?> class="form-check-input" value="Single">Single
 						</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label">
-						<input type="checkbox" id="maritalStatus" name="maritalStatus" 
+						<input type="radio" id="maritalStatus" name="maritalStatus" 
 						<?php echo $maritalOtherChecked ?> class="form-check-input" value="Other">Other
 						</label>
 					</div>
@@ -895,6 +894,12 @@ $("#allergyYN").change(function() {
   }
 });
 $("#allergyYN").trigger("change");
+
+$(document).ready(function(){
+    $('.check').click(function() {
+        $('.check').not(this).prop('checked', false);
+    });
+});
 
 
 </script>

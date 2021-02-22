@@ -124,6 +124,7 @@ class Dashboard extends CI_Controller {
 		
 		$data['smsyn'] = $this->Dashboard_model->smsyn();
 		$data['emailyn'] = $this->Dashboard_model->emailyn();
+		$data['dob'] = $this->Dashboard_model->DOB();
 		
         $this->load->view('header', $data);
 		$this->load->view('data', $data);

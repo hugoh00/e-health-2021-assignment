@@ -904,12 +904,10 @@ class Dashboard_model extends CI_Model {
     }
     private function getStatus($id) 
     {
-        $this->db->select('GUID');
-        $this->db->where('GUID', $id);
-        $this->db->like('status', 'pending');
-        $this->db->or_like('status', 'confirmed');
+        $statement = "SELECT GUID FROM `users` 
+        WHERE GUID = $id AND (status = 'pending' OR status = 'confirmed')";
         //from the users table
-        $query = $this->db->get('users');
+        $query = $this->db->query($statement);
         $check = sizeof($query->result());
         if ($check == 0) {
             return false;
@@ -917,6 +915,7 @@ class Dashboard_model extends CI_Model {
             return true;
         }
 
+        return $query;
     }
     public function completed($id) {
         return $this->checkCompleted($id);
@@ -1011,5 +1010,20 @@ class Dashboard_model extends CI_Model {
         $this->db->select('GUID');
         $this->db->where('SMS_YN', $yn);
         return $this->db->count_all_results('users');
+    }
+    //get dob
+
+    public function DOB() 
+    {
+        return $this->getDOB();
+    }
+    private function getDOB()
+    {
+         //sql statement to get the dob
+         $this->db->select('dob');
+         //from the users table
+         $query = $this->db->get('users');
+ 
+         return $query;
     }
 }

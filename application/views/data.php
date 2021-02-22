@@ -1,7 +1,11 @@
 
 <style type="text/css">
-.chart {
+.piechart {
   width: 50%; 
+  min-height: 450px;
+}
+.barchart {
+  width: 100%; 
   min-height: 450px;
 }
 .row {
@@ -19,6 +23,8 @@
       google.charts.setOnLoadCallback(drawSmsynPiechart);
 	  google.charts.setOnLoadCallback(drawEmailynPiechart);
 
+	  google.charts.setOnLoadCallback(barchartQuestionX);
+
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
@@ -31,7 +37,7 @@
        
 		<?php $smsno = $totalUsers - $smsyn; ?>
 		<?php echo "data.addRows([ ['Yes', $smsyn]]);" ?>
-		<?php echo "data.addRows([ ['No', $smsno]]);" ?>
+		<?php echo "data.addRows([ ['No', $smsno]]);" ?>	
 
 		//loop
 		//
@@ -57,8 +63,6 @@
 		<?php echo "data.addRows([ ['Yes', $emailyn]]);" ?>
 		<?php echo "data.addRows([ ['No', $emailno]]);" ?>
 
-		//loop
-		//
 
 		// Set chart options
 		var options = {'title':'Contacted by Email (Yes/No)', colors: ['#8e4585', '#C8A2C8']};
@@ -67,6 +71,62 @@
 		var chart = new google.visualization.PieChart(document.getElementById('piechart_emailyn'));
 		chart.draw(data, options);
 		}
+		function barchartQuestionX() {
+			<?php 
+				$ageRange1830 = 0;
+				$ageRange3150 = 0;
+				$ageRange5170 = 0;
+				$ageRange70plus = 0;
+				foreach ($dob->result() as $row) 
+				{
+					$date = $row->dob;
+					//calculating age
+					$_age = floor((time() - strtotime($date)) / 31556926);	
+					
+					//putting them into the age range
+					if ($_age >=18 && $_age <= 30) 
+					{
+						$ageRange1830 =  $ageRange1830 + 1;
+					} else if ($_age >=31 && $_age <= 50) {
+						$ageRange3150 =  $ageRange3150 + 1;
+					} else if ($_age >=51 && $_age <= 70) {
+						$ageRange5170 =  $ageRange5170 + 1;
+					} else if ($_age > 70) {
+						$ageRange70plus = $ageRange70plus + 1;
+					}
+				}
+				echo <<<_END
+			var data = google.visualization.arrayToDataTable([
+				["Age Range", "Total Users", { role: "style" } ],
+				["18-30", $ageRange1830, "#c8a2c8"],
+				["31-50", $ageRange3150, "#b5a2c8"],
+				["51-70", $ageRange5170, "#c8a2b5"],
+				["70+", $ageRange70plus, "#a2c8b5"]
+			]);
+_END;
+			?>
+			var view = new google.visualization.DataView(data);
+			view.setColumns([0, 1,
+							{ calc: "stringify",
+								sourceColumn: 1,
+								type: "string",
+								role: "annotation" },
+							2]);
+
+			var options = {
+				title: "Age Groups of Users",
+				bar: {groupWidth: "95%"},
+				legend: { position: "none" },
+			};
+			var chart = new google.visualization.BarChart(document.getElementById("barchart_questionx"));
+			chart.draw(view, options);
+  		}
+
+		$(window).resize(function(){
+        	drawSmsynPiechart();
+			drawEmailynPiechart();
+			barchartQuestionX();
+        });
     </script>
 
 
@@ -134,11 +194,16 @@
 					
 		</div>
 		<!--Div that will hold the pie chart-->
-		
+		<h2><small class="text-muted">Contact Preferences</small></h2>
 		<div class="row">
-			<div id="piechart_smsyn" class="chart"></div>
-			<div id="piechart_emailyn" class="chart"></div>
+			<div id="piechart_smsyn" class="piechart"></div>
+			<div id="piechart_emailyn" class="piechart"></div>
 		</div>
+		<h2><small class="text-muted">Questionnaire</small></h2>
+		<div class="row">
+			<div id="barchart_questionx" class="barchart"></div>
+		</div>
+		
 	</div>
    
 
