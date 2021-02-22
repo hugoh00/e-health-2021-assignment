@@ -16,30 +16,57 @@
       google.charts.load('current', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawSmsynPiechart);
+	  google.charts.setOnLoadCallback(drawEmailynPiechart);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
-      function drawChart() {
+      function drawSmsynPiechart() {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Email/SMS');
+        data.addColumn('string', 'SMS');
         data.addColumn('number', 'Yes/NO');
        
-		data.addRows([ ['Pepperoni', 2]]);
+		<?php $smsno = $totalUsers - $smsyn; ?>
+		<?php echo "data.addRows([ ['Yes', $smsyn]]);" ?>
+		<?php echo "data.addRows([ ['No', $smsno]]);" ?>
 
 		//loop
 		//
 
         // Set chart options
-        var options = {'title':'Ways Users want to be contacted'};
+        var options = {'title':'Contacted by SMS (Yes/No)', colors: ['#8e4585', '#C8A2C8']};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_smsyn'));
         chart.draw(data, options);
       }
+	  // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawEmailynPiechart() {
+
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Email');
+		data.addColumn('number', 'Yes/No');
+
+		<?php $emailno = $totalUsers - $emailyn; ?>
+		<?php echo "data.addRows([ ['Yes', $emailyn]]);" ?>
+		<?php echo "data.addRows([ ['No', $emailno]]);" ?>
+
+		//loop
+		//
+
+		// Set chart options
+		var options = {'title':'Contacted by Email (Yes/No)', colors: ['#8e4585', '#C8A2C8']};
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.PieChart(document.getElementById('piechart_emailyn'));
+		chart.draw(data, options);
+		}
     </script>
 
 
@@ -81,7 +108,7 @@
 	<div class="container" style="background-color:aliceblue; padding-top:5px; padding-bottom:10px;">
 		<div class="row">    
 			<div id="left-col" class="col-md-4">
-				<div class="card text-black bg-info mb-3" style="max-width: 95%">
+				<div class="card text-black mb-3" style="max-width: 95%; background-color: #ffb6c1; border-color: black;"> 
 					<div class="card-header"><h4>Total Users</h4></div>
 					<div class="card-body">
 						<h3 id="activeN" class="card-title"><?php echo $totalUsers ?></h3>
@@ -89,7 +116,7 @@
 				</div>
 			</div>
 			<div id="mid-col" class="col-md-4">
-				<div class="card text-black bg-warning mb-3" style="max-width: 95%">
+				<div class="card text-black mb-3" style="max-width: 95%; background-color: #ffb6c1; border-color: black;"> 
 					<div class="card-header"><h4>Pending Questionnaires</h4></div>
 					<div class="card-body">
 						<h3 id="activeN" class="card-title"><?php echo $pendingQuestionnaires ?></h3>
@@ -97,7 +124,7 @@
 				</div>
 			</div>
 			<div id="right-col" class="col-md-4">
-				<div class="card text-black bg-success mb-3" style="max-width: 95%">
+				<div class="card text-black mb-3" style="max-width: 95%; background-color: #ffb6c1; border-color: black;"> 
 					<div class="card-header"><h4>Accepted Questionnaires</h4></div>
 					<div class="card-body">
 						<h3 id="activeN" class="card-title"><?php echo $confirmedQuestionnaires ?></h3>
@@ -109,7 +136,8 @@
 		<!--Div that will hold the pie chart-->
 		
 		<div class="row">
-			<div id="chart_div" class="chart"></div>
+			<div id="piechart_smsyn" class="chart"></div>
+			<div id="piechart_emailyn" class="chart"></div>
 		</div>
 	</div>
    

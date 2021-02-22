@@ -122,7 +122,8 @@ class Dashboard extends CI_Controller {
 		$data['pendingQuestionnaires'] = $this->Dashboard_model->totalPending();
 		$data['confirmedQuestionnaires'] = $this->Dashboard_model->totalCompleted();
 		
-		$data['smsemailyn'] = $this->Dashboard_model->smsEmailyn();
+		$data['smsyn'] = $this->Dashboard_model->smsyn();
+		$data['emailyn'] = $this->Dashboard_model->emailyn();
 		
         $this->load->view('header', $data);
 		$this->load->view('data', $data);

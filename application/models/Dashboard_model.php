@@ -991,18 +991,19 @@ class Dashboard_model extends CI_Model {
     //piechart data
 
     //sms and email yn
-    public function smsEmailyn() 
+    public function smsyn() 
     {
-        $emailYes = $this->countEmailyn("Y");
-        $emailNo = $this->countEmailyn("N");
-        $smsYes  = $this->countSmsyn("Y");
-        $smsNo = $this->countSmsyn("N");
-      
+        return $this->countSmsyn("Y");
+    }
+    public function emailyn() 
+    {
+        return $this->countEmailyn("Y");
     }
     private function countEmailyn($yn)
     {
         $this->db->select('GUID');
         $this->db->where('email_yn', $yn);
+
         return $this->db->count_all_results('users');
     }
     private function countSmsyn($yn)
