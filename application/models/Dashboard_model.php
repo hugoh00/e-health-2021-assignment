@@ -1026,4 +1026,55 @@ class Dashboard_model extends CI_Model {
  
          return $query;
     }
+
+    public function ageExercise() 
+    {
+        return $this->getAgeExercise();
+    }
+    private function getAgeExercise() 
+    {
+// SELECT users.dob, lifestyle.exercise_minutes 
+// FROM lifestyle 
+// JOIN users ON (users.GUID = lifestyle.userid)
+        $this->db->select("users.dob, lifestyle.exercise_minutes"); 
+        $this->db->from('lifestyle');
+           // we join the questions and options tables on the foreign key options id in alcohol_questions
+           // into the GUID of alcohol_options
+        $this->db->join('users', 'users.GUID = lifestyle.userid');
+
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function responseScores() 
+    {
+        $responses = array(
+            array($this->getResponseScores(1,0),$this->getResponseScores(1,1),$this->getResponseScores(1,2),$this->getResponseScores(1,3),$this->getResponseScores(1,4)),
+            array($this->getResponseScores(2,0),$this->getResponseScores(2,1),$this->getResponseScores(2,2),$this->getResponseScores(2,3),$this->getResponseScores(2,4)),
+            array($this->getResponseScores(3,0),$this->getResponseScores(3,1),$this->getResponseScores(3,2),$this->getResponseScores(3,3),$this->getResponseScores(3,4)),
+            array($this->getResponseScores(4,0),$this->getResponseScores(4,1),$this->getResponseScores(4,2),$this->getResponseScores(4,3),$this->getResponseScores(4,4)),
+            array($this->getResponseScores(5,0),$this->getResponseScores(5,1),$this->getResponseScores(5,2),$this->getResponseScores(5,3),$this->getResponseScores(5,4)),
+            array($this->getResponseScores(6,0),$this->getResponseScores(6,1),$this->getResponseScores(6,2),$this->getResponseScores(6,3),$this->getResponseScores(6,4)),
+            array($this->getResponseScores(7,0),$this->getResponseScores(7,1),$this->getResponseScores(7,2),$this->getResponseScores(7,3),$this->getResponseScores(7,4)),
+            array($this->getResponseScores(8,0),$this->getResponseScores(8,1),$this->getResponseScores(8,2),$this->getResponseScores(8,3),$this->getResponseScores(8,4)),
+            array($this->getResponseScores(9,0),0,$this->getResponseScores(9,2),0,$this->getResponseScores(9,4)),
+            array($this->getResponseScores(10,0),0,$this->getResponseScores(10,2),0,$this->getResponseScores(10,4))
+        );
+        return $responses;
+    }
+    private function getResponseScores($questionid, $responsescore) 
+    {
+        $this->db->select("COUNT(response) as 'total'"); 
+        $this->db->from('alcohol_responses');
+
+        $this->db->where('response_score', $responsescore);
+        $this->db->where('questionid', $questionid);
+
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row)
+        {
+            return $row->total;
+        }
+    }
 }

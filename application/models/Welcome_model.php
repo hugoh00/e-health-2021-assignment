@@ -40,7 +40,7 @@ class Welcome_model extends CI_Model {
         $query = $this->db->get('users');
         //returns query result
         foreach($query->result() as $row) {
-            if ($row->email == $email) 
+            if ($row->email === $email) 
             {
                 return true;
             }
@@ -93,7 +93,7 @@ class Welcome_model extends CI_Model {
         $usernameCheck = $this->getMatchingUsername($username);
 
         //if no records exist we can now attempt to insert into the db
-        if($emailCheck == true && $usernameCheck == true) {
+        if($emailCheck == false && $usernameCheck == false) {
             if ($this->insertNewUser($email, $username, $password)) {
                 $valid = true;
             }

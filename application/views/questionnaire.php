@@ -85,7 +85,7 @@
 	}
 	?>
 	<div class="container-fluid" style="background-color:#b3ffe0">
-		<h1>Questionnaire</h2>
+		<h1>Questionnaire</h1>
 		<!-- Basic Information Form -->
 		<div class="container-fluid" style="background-color:aliceblue; padding-top:5px; padding-bottom:5px;">  
 		<?php echo "$fieldsetBegin"; ?>
@@ -181,7 +181,7 @@
 				</div>
 			</div>
 
-			<button class="btn bg-warning" type="submit" name="basicInfoSave" id="basicInfoSave" value="basicInfoSave">Save</button>
+			<button class="btn" style="background-color: #f5f5dc;" type="submit" name="basicInfoSave" id="basicInfoSave" value="basicInfoSave">Save</button>
 			</form>
 			<?php echo "$fieldsetEnd"; ?>
 		</div>
@@ -290,7 +290,7 @@
 				</div>
 			</div>
 
-			<button class="btn bg-warning" type="submit" name="contactDetailsSave" id="contactDetailsSave" value="contactDetailsSave">Save</button>
+			<button class="btn" style="background-color: #f5f5dc;" type="submit" name="contactDetailsSave" id="contactDetailsSave" value="contactDetailsSave">Save</button>
 			</form>
 		<?php echo "$fieldsetEnd"; ?>
 		</div>
@@ -334,7 +334,7 @@
 					<input type="text" class="form-control" name="kinNumber" id="kinNumber" value="<?php echo $kinNumber ?>" placeholder="Enter Kin Telephone" required>
 				</div>
 			</div>
-			<button class="btn bg-warning" type="submit" name="kinInfoSave" id="kinInfoSave" value="kinInfoSave">Save</button>
+			<button class="btn" style="background-color: #f5f5dc;" type="submit" name="kinInfoSave" id="kinInfoSave" value="kinInfoSave">Save</button>
 			</form>
 		<?php echo "$fieldsetEnd"; ?>
 		</div>
@@ -507,7 +507,7 @@
 					<label class="col-sm-3 col-form-label" for="smokingAge">How old were you when you started smoking?:</label>
 					<div class="col-sm-9">
 						<input type="text" class="form-control" name="smokingAge" id="smokingAge" 
-						value="<?php echo $smokingAge ?>" placeholder="Enter Full Name">
+						value="<?php echo $smokingAge ?>" placeholder="Enter Age you Started Smoking">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -783,7 +783,7 @@
 				</div>
 			</div>
 			
-			<button class="btn bg-warning" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
+			<button class="btn" style="background-color: #f5f5dc;" type="submit" name="questionnaireSave" id="questionnaireSave" value="questionnaireSave">Save</button>
 			</form>
 		<?php echo "$fieldsetEnd"; ?>
 		</div>
@@ -804,12 +804,12 @@
 			<?php 
 			if ($staff == true) {
 				$buttonInfo = "Sign Questionnaire Off";
-				$buttonClass = "btn bg-success btn-lg btn-block";
-				$style = "";
+				$buttonClass = "btn btn-lg btn-block";
+				$style = "background-color: #008080;";
 			} else {
 				$buttonInfo = "Complete Questionnaire";
-				$buttonClass = "btn bg-warning btn-lg btn-block";
-				$style = "background-color: #007bff;";
+				$buttonClass = "btn btn-lg btn-block";
+				$style = "background-color: #f5f5dc;";
 			}
 			if (isset($user)) {
 				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
