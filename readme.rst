@@ -108,7 +108,10 @@ User -> Dashboard - Questionnaire - Logout
 Dashboard is just a basic staging post to send the admin/user elsewhere
 Data is where the graphs will be shown
 Completed Questionnaires is shown !!!! I have set users to Pending or Accepted in status
-maybe my db data will be required 
+maybe my db data will be required if your db setup is different
+
 Questionnaire - If admin accesses this it will be all locked If User accesses it they will
 be able to enter details into the questionnaire Once submitted the questionnaire inputs
 will all be disabled unless admin rejects the questionnaire then they will be set to Rejected
+
+If rejected user will gain access to alter data again

@@ -348,7 +348,7 @@ class Dashboard extends CI_Controller {
 		if($check == true) {
 			$this->dashboardLoad($userID);
 		} else {
-			echo $check;
+			$this->dashboardLoad($userID);
 		}
 
 		

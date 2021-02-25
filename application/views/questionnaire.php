@@ -826,13 +826,11 @@
 				$buttonClass = "btn btn-lg btn-block";
 				$style = "background-color: #f5f5dc;";
 			}
-			if (isset($user)) {
-				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
-			}
 			if ($staff == true) {
 				$url = base_url("index.php/rejectQuestionnaire/" . base64_encode($id));
 			echo <<<_END
 			<form id="rejectForm" name="rejectForm" action="$url" method="post">
+			<input type='hidden' name='questID' id='questID' value='$user'>
 			<div class="text-center">
 			<button class="$buttonClass" style="$style" type="submit" name="reject" id="reject" value="reject">$buttonInfo</button>
 			</div>
