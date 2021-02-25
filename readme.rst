@@ -68,3 +68,47 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+**********************
+Accessing the Project
+**********************
+
+The database hasn't been altered so there's no need to import the script into phpmyadmin
+Unless you wanted to use my data. 
+
+localhost/e-health/ to access the homepage where you can login/register
+
+*****
+Admin
+*****
+
+It is assumed the admin has an email of xxxx@ehealth.com
+That is what the check for admin is specifically looking 
+
+In a proper system there would obviously be email confirmation and maybe if there were going to be 
+more admins they would be directly inserted into the database. Maybe even have a different table for 
+them.
+
+*****
+Users
+*****
+
+They can sign in with their username and password which you can get from the db or make a new user and 
+login with those details
+
+**********
+Dashboard
+**********
+
+Every user goes to the Dashboard but will get a slight difference in navigation bars.
+
+Admin -> Dashboard - Data - Completed Questionnaires - Logout
+User -> Dashboard - Questionnaire - Logout
+
+Dashboard is just a basic staging post to send the admin/user elsewhere
+Data is where the graphs will be shown
+Completed Questionnaires is shown !!!! I have set users to Pending or Accepted in status
+maybe my db data will be required 
+Questionnaire - If admin accesses this it will be all locked If User accesses it they will
+be able to enter details into the questionnaire Once submitted the questionnaire inputs
+will all be disabled unless admin rejects the questionnaire then they will be set to Rejected

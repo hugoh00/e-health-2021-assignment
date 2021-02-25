@@ -890,10 +890,10 @@ class Dashboard_model extends CI_Model {
     private function questionnaireRetrieval() 
     {
         $this->db->select('GUID, firstname, surname, status');
-        $pending = "pending";
-        $confirmed = "confirmed";
+        $pending = "Pending";
+        $Accepted = "Accepted";
         $this->db->like('status', $pending, 'none');
-        $this->db->or_like('status', $confirmed, 'none');
+        $this->db->or_like('status', $Accepted, 'none');
         //from the users table
         $query = $this->db->get('users');
         return $query;
@@ -905,7 +905,7 @@ class Dashboard_model extends CI_Model {
     private function getStatus($id) 
     {
         $statement = "SELECT GUID FROM `users` 
-        WHERE GUID = $id AND (status = 'pending' OR status = 'confirmed')";
+        WHERE GUID = $id AND (status = 'Pending' OR status = 'Accepted')";
         //from the users table
         $query = $this->db->query($statement);
         $check = sizeof($query->result());
@@ -924,7 +924,7 @@ class Dashboard_model extends CI_Model {
     {
         $this->db->select('GUID');
         $this->db->where('GUID', $id);
-        $this->db->like('status', 'confirmed');
+        $this->db->like('status', 'Accepted');
         //from the users table
         $query = $this->db->get('users');
         $check = sizeof($query->result());
@@ -934,6 +934,10 @@ class Dashboard_model extends CI_Model {
             return true;
         }
 
+    }
+    public function rejectStatus($id, $status) 
+    {
+        return $this->updateStatus($id, $status);
     }
     private function updateStatus($id, $status)
     {
@@ -970,7 +974,7 @@ class Dashboard_model extends CI_Model {
     }
     private function getTotalPending()
     {
-        $pending = "pending";
+        $pending = "Pending";
         $this->db->select('GUID');
         $this->db->where('status', $pending);
         return $this->db->count_all_results('users');
@@ -981,9 +985,9 @@ class Dashboard_model extends CI_Model {
     }
     private function getTotalCompleted()
     {
-        $confirmed = "confirmed";
+        $accepted = "Accepted";
         $this->db->select('GUID');
-        $this->db->where('status', $confirmed);
+        $this->db->where('status', $accepted);
         return $this->db->count_all_results('users');
     }
 

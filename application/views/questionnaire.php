@@ -820,7 +820,28 @@
 			<button class="<?php echo $buttonClass; ?>" style="<?php echo $style; ?>"type="submit" name="submission" id="submission" value="submission"><?php echo $buttonInfo; ?></button>
 			</div>
 			</form>
-			<?php echo "$endFormEnd"; ?>
+			<?php 
+			if ($staff == true) {
+				$buttonInfo = "Reject Questionnaire";
+				$buttonClass = "btn btn-lg btn-block";
+				$style = "background-color: #f5f5dc;";
+			}
+			if (isset($user)) {
+				echo "<input type='hidden' name='questID' id='questID' value='$user'>";
+			}
+			if ($staff == true) {
+				$url = base_url("index.php/rejectQuestionnaire/" . base64_encode($id));
+			echo <<<_END
+			<form id="rejectForm" name="rejectForm" action="$url" method="post">
+			<div class="text-center">
+			<button class="$buttonClass" style="$style" type="submit" name="reject" id="reject" value="reject">$buttonInfo</button>
+			</div>
+			</form>
+
+_END;
+			}
+			?>
+		<?php echo "$endFormEnd"; ?>
 		</div>
 
 		<br>

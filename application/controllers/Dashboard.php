@@ -315,15 +315,35 @@ class Dashboard extends CI_Controller {
 	{
 		$user =  $this->Dashboard_model->getUsername(base64_decode($userID));
 		$privilege = $this->Dashboard_model->checkAccountType($user);
-		$confirmed = "confirmed";
-		$pending = "pending";
+		$accepted = "Accepted";
+		$pending = "Pending";
 
 		if ($privilege == true) {
 			$id = $this->input->post("questID");
-			$check = $this->Dashboard_model->submitQuestionnaire($id, $confirmed);
+			$check = $this->Dashboard_model->submitQuestionnaire($id, $accepted);
 		} else {
 			$check = $this->Dashboard_model->submitQuestionnaire(base64_decode($userID), $pending);
 		}
+
+		if($check == true) {
+			$this->dashboardLoad($userID);
+		} else {
+			echo $check;
+		}
+
+		
+
+	}
+	public function rejectQuestionnaire($userID) 
+	{
+		$user =  $this->Dashboard_model->getUsername(base64_decode($userID));
+		$privilege = $this->Dashboard_model->checkAccountType($user);
+		$rejected = "Rejected";
+
+		if ($privilege == true) {
+			$id = $this->input->post("questID");
+			$check = $this->Dashboard_model->rejectStatus($id, $rejected);
+		} 
 
 		if($check == true) {
 			$this->dashboardLoad($userID);

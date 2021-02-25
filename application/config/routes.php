@@ -71,3 +71,4 @@ $route['contactInfo/(:any)'] = 'Dashboard/contactInfoSave/$1';
 $route['emergencyContactInfo/(:any)'] = 'Dashboard/emergencyContactInfoSave/$1';
 $route['questionnaire/(:any)'] = 'Dashboard/questionnaire/$1';
 $route['submitQuestionnaire/(:any)'] = 'Dashboard/submitQuestionnaire/$1';
+$route['rejectQuestionnaire/(:any)'] = 'Dashboard/rejectQuestionnaire/$1';
